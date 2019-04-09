@@ -354,7 +354,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`spec` (
   `img` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `parma_fk_commodity_idx` (`commodity_id` ASC) VISIBLE,
-  CONSTRAINT `parma_fk_commodity`
+  CONSTRAINT `spec_fk_commodity`
     FOREIGN KEY (`commodity_id`)
     REFERENCES `mall`.`commodity` (`id`)
     ON DELETE NO ACTION
