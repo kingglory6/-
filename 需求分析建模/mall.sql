@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`Collection` (
   `uid` INT NOT NULL,
   `commodity_id` INT NOT NULL,
   `price` DOUBLE NOT NULL,
-  `time` DATETIME NOT NULL,
+  `time` DATETIME NOT NULL DEFAULT now(),
   PRIMARY KEY (`uid`, `commodity_id`),
   INDEX `collection_fk_commodity_idx` (`commodity_id` ASC) VISIBLE,
   CONSTRAINT `collection_fk_user`
@@ -163,6 +163,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`cart` (
   `uid` INT NOT NULL,
   `commodity_id` INT NOT NULL,
   `quantity` INT NOT NULL,
+  `spec_id` INT NOT NULL,
   INDEX `cart_fk_commodity_idx` (`commodity_id` ASC) VISIBLE,
   INDEX `cart_fk_user_idx` (`uid` ASC) VISIBLE,
   PRIMARY KEY (`uid`, `commodity_id`),
@@ -220,7 +221,6 @@ CREATE TABLE IF NOT EXISTS `mall`.`orders` (
   `sendstatus` INT NOT NULL DEFAULT 0,
   `hidden` INT NOT NULL DEFAULT 0,
   `total` DOUBLE NOT NULL,
-  `orderscol` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   INDEX `orders_fk_user_idx` (`uid` ASC) VISIBLE,
   CONSTRAINT `orders_fk_user`
@@ -263,7 +263,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mall`.`comment` ;
 
 CREATE TABLE IF NOT EXISTS `mall`.`comment` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `commodity_id` INT NOT NULL,
   `uid` INT NOT NULL,
   `content` VARCHAR(200) NOT NULL,
