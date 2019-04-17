@@ -15,11 +15,11 @@ CREATE SCHEMA IF NOT EXISTS `mall` DEFAULT CHARACTER SET utf8 ;
 USE `mall` ;
 
 -- -----------------------------------------------------
--- Table `mall`.`client`
+-- Table `mall`.`customer`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mall`.`client` ;
+DROP TABLE IF EXISTS `mall`.`customer` ;
 
-CREATE TABLE IF NOT EXISTS `mall`.`client` (
+CREATE TABLE IF NOT EXISTS `mall`.`customer` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `netname` CHAR(16) NOT NULL,
   `phone` CHAR(11) NOT NULL,
@@ -63,9 +63,9 @@ CREATE TABLE IF NOT EXISTS `mall`.`commodity` (
   `title` VARCHAR(45) NOT NULL,
   `price` DOUBLE NOT NULL,
   `description` VARCHAR(100) NULL,
-  `shelf` INT NOT NULL DEFAULT 0,
+  `shelf` TINYINT NOT NULL DEFAULT 0,
   `recommend` INT NOT NULL DEFAULT 0,
-  `stock` INT NOT NULL,
+  `stock` INT NOT NULL DEFAULT 0,
   `category_id` INT NOT NULL,
   `brand_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`Collection` (
   INDEX `collection_fk_commodity_idx` (`commodity_id` ASC) VISIBLE,
   CONSTRAINT `collection_fk_user`
     FOREIGN KEY (`uid`)
-    REFERENCES `mall`.`client` (`id`)
+    REFERENCES `mall`.`customer` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `collection_fk_commodity`
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`address` (
   INDEX `add_fk_user_idx` (`uid` ASC) VISIBLE,
   CONSTRAINT `add_fk_user`
     FOREIGN KEY (`uid`)
-    REFERENCES `mall`.`client` (`id`)
+    REFERENCES `mall`.`customer` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`history` (
   INDEX `history_fk_commodity_idx` (`commodity_id` ASC) VISIBLE,
   CONSTRAINT `history_fk_user`
     FOREIGN KEY (`uid`)
-    REFERENCES `mall`.`client` (`id`)
+    REFERENCES `mall`.`customer` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `history_fk_commodity`
@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`cart` (
   PRIMARY KEY (`uid`, `commodity_id`),
   CONSTRAINT `cart_fk_user`
     FOREIGN KEY (`uid`)
-    REFERENCES `mall`.`client` (`id`)
+    REFERENCES `mall`.`customer` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `cart_fk_commodity`
@@ -186,16 +186,11 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mall`.`notice` ;
 
 CREATE TABLE IF NOT EXISTS `mall`.`notice` (
-  `uid` INT NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
   `commodity_id` INT NOT NULL,
   `iNotice` INT NOT NULL DEFAULT 0,
-  PRIMARY KEY (`uid`, `commodity_id`),
+  PRIMARY KEY (`email`, `commodity_id`),
   INDEX `notice_fk_commodity_idx` (`commodity_id` ASC) VISIBLE,
-  CONSTRAINT `notice_fk_user`
-    FOREIGN KEY (`uid`)
-    REFERENCES `mall`.`client` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `notice_fk_commodity`
     FOREIGN KEY (`commodity_id`)
     REFERENCES `mall`.`commodity` (`id`)
@@ -225,7 +220,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`orders` (
   INDEX `orders_fk_user_idx` (`uid` ASC) VISIBLE,
   CONSTRAINT `orders_fk_user`
     FOREIGN KEY (`uid`)
-    REFERENCES `mall`.`client` (`id`)
+    REFERENCES `mall`.`customer` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -279,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`comment` (
     ON UPDATE NO ACTION,
   CONSTRAINT `comment_fk_user`
     FOREIGN KEY (`uid`)
-    REFERENCES `mall`.`client` (`id`)
+    REFERENCES `mall`.`customer` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -337,7 +332,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`admin` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `account` CHAR(10) NOT NULL,
   `password` CHAR(64) NOT NULL,
-  `admin_name` VARCHAR(20) NOT NULL,
+  `name` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
