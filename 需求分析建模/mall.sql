@@ -62,12 +62,15 @@ CREATE TABLE IF NOT EXISTS `mall`.`commodity` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NOT NULL,
   `price` DOUBLE NOT NULL,
+  `discount` DOUBLE NOT NULL,
   `description` VARCHAR(100) NULL,
   `shelf` TINYINT NOT NULL DEFAULT 0,
   `recommend` INT NOT NULL DEFAULT 0,
   `stock` INT NOT NULL DEFAULT 0,
+  `limitstock` INT NOT NULL DEFAULT 0,
   `category_id` INT NOT NULL,
   `brand_id` INT NOT NULL,
+  `activity` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `commodity_fk_category_idx` (`category_id` ASC) VISIBLE,
   INDEX `commodity_fk_brand_idx` (`brand_id` ASC) VISIBLE,
@@ -281,41 +284,22 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mall`.`spike`
+-- Table `mall`.`activity`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mall`.`spike` ;
+DROP TABLE IF EXISTS `mall`.`activity` ;
 
-CREATE TABLE IF NOT EXISTS `mall`.`spike` (
+CREATE TABLE IF NOT EXISTS `mall`.`activity` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `commodity_id` INT NOT NULL,
   `start_time` DATETIME NOT NULL,
   `end_time` DATETIME NOT NULL,
   `stock` INT NOT NULL,
   `price` DOUBLE NOT NULL,
+  `type` INT NOT NULL,
+  `stuta` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `spike_fk_commodity_idx` (`commodity_id` ASC) VISIBLE,
   CONSTRAINT `spike_fk_commodity`
-    FOREIGN KEY (`commodity_id`)
-    REFERENCES `mall`.`commodity` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mall`.`discount`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mall`.`discount` ;
-
-CREATE TABLE IF NOT EXISTS `mall`.`discount` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `commodity_id` INT NOT NULL,
-  `start_time` DATETIME NOT NULL,
-  `end_time` DATETIME NOT NULL,
-  `price` DOUBLE NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `discount_fk_commodity_idx` (`commodity_id` ASC) VISIBLE,
-  CONSTRAINT `discount_fk_commodity`
     FOREIGN KEY (`commodity_id`)
     REFERENCES `mall`.`commodity` (`id`)
     ON DELETE NO ACTION
@@ -356,6 +340,20 @@ CREATE TABLE IF NOT EXISTS `mall`.`spec` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+USE `mall` ;
+
+-- -----------------------------------------------------
+-- Placeholder table for view `mall`.`v_commodity`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mall`.`v_commodity` (`id` INT, `title` INT, `price` INT, `discount` INT, `description` INT, `stock` INT, `category_id` INT, `brand_id` INT, `activity` INT);
+
+-- -----------------------------------------------------
+-- View `mall`.`v_commodity`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mall`.`v_commodity`;
+DROP VIEW IF EXISTS `mall`.`v_commodity` ;
+USE `mall`;
+CREATE  OR REPLACE VIEW `v_commodity` AS select id,title,price,discount,description,stock,category_id,brand_id,activity from commodity where shelf = 1;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
