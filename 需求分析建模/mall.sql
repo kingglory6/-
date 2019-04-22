@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`cart` (
   `spec_id` INT NOT NULL,
   INDEX `cart_fk_commodity_idx` (`commodity_id` ASC) VISIBLE,
   INDEX `cart_fk_user_idx` (`uid` ASC) VISIBLE,
-  PRIMARY KEY (`uid`, `commodity_id`),
+  PRIMARY KEY (`uid`, `commodity_id`, `spec_id`),
   CONSTRAINT `cart_fk_user`
     FOREIGN KEY (`uid`)
     REFERENCES `mall`.`customer` (`id`)
@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`notice` (
   CONSTRAINT `notice_fk_commodity`
     FOREIGN KEY (`commodity_id`)
     REFERENCES `mall`.`commodity` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -219,6 +219,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`orders` (
   `sendstatus` INT NOT NULL DEFAULT 0,
   `hidden` INT NOT NULL DEFAULT 0,
   `total` DOUBLE NOT NULL,
+  `wuliu` CHAR(13) NULL,
   PRIMARY KEY (`id`),
   INDEX `orders_fk_user_idx` (`uid` ASC) VISIBLE,
   CONSTRAINT `orders_fk_user`
@@ -273,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`comment` (
   CONSTRAINT `comment_fk_commodity`
     FOREIGN KEY (`commodity_id`)
     REFERENCES `mall`.`commodity` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `comment_fk_user`
     FOREIGN KEY (`uid`)
@@ -296,13 +297,13 @@ CREATE TABLE IF NOT EXISTS `mall`.`activity` (
   `stock` INT NOT NULL,
   `price` DOUBLE NOT NULL,
   `type` INT NOT NULL,
-  `stuta` INT NOT NULL DEFAULT 0,
+  `statu` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `spike_fk_commodity_idx` (`commodity_id` ASC) VISIBLE,
   CONSTRAINT `spike_fk_commodity`
     FOREIGN KEY (`commodity_id`)
     REFERENCES `mall`.`commodity` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -336,7 +337,7 @@ CREATE TABLE IF NOT EXISTS `mall`.`spec` (
   CONSTRAINT `spec_fk_commodity`
     FOREIGN KEY (`commodity_id`)
     REFERENCES `mall`.`commodity` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
