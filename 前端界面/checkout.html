@@ -255,93 +255,6 @@
                     </header>
                     <!-- 导航结束 -->
 
-                    <!-- mobile-menu-area start -->
-                    <div class="mobile-menu-area">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mobile-menu">
-                                        <nav id="dropdown">
-                                            <ul>
-                                                <li><a class="active1"
-                                                        href="index.html">Home</a>
-                                                    <ul>
-                                                        <li><a
-                                                                href="index.html">home
-                                                                version 1
-                                                            </a></li>
-                                                        <li><a
-                                                                href="index-2.html">home
-                                                                version 2
-                                                            </a></li>
-                                                        <li><a
-                                                                href="index-3.html">home
-                                                                version 3
-                                                            </a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="active1"><a
-                                                        class="active1"
-                                                        href="#">Pages</a>
-                                                    <ul>
-                                                        <li><a
-                                                                href="about-us.html">about
-                                                                us </a></li>
-                                                        <li><a
-                                                                href="cart.html">cart</a></li>
-                                                        <li><a
-                                                                href="checkout.html">checkout</a></li>
-                                                        <li><a
-                                                                href="wishlist.html">wishlist</a></li>
-                                                        <li><a
-                                                                href="login.html">login</a></li>
-                                                        <li><a
-                                                                href="register.html">register</a></li>
-                                                        <li><a
-                                                                href="contact.html">contact</a></li>
-                                                        <li><a
-                                                                href="shop-page.html">shop
-                                                                page</a></li>
-                                                        <li><a
-                                                                href="shop-list.html">shop
-                                                                list</a></li>
-                                                        <li><a
-                                                                href="single-product.html">single
-                                                                product</a></li>
-                                                        <li><a
-                                                                href="404.html">404
-                                                                page</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="active1"><a
-                                                        class="active1"
-                                                        href="#">Blog</a>
-                                                    <ul>
-                                                        <li><a
-                                                                href="blog-page.html">blog-page</a></li>
-                                                        <li><a
-                                                                href="blog-sidebar.html">blog
-                                                                left sidebar</a></li>
-                                                        <li><a
-                                                                href="blog-right-sidebar.html">blog
-                                                                right
-                                                                sidebar </a></li>
-                                                        <li><a
-                                                                href="blog-details.html">blog-details
-                                                            </a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="about-us.html">about
-                                                        us</a></li>
-                                                <li><a href="contact.html">Contacts</a></li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- mobile-menu-area end -->
 
                     <!-- breadcrumbs start -->
                     <div class="breadcrumbs-area breadcrumb-bg ptb-100">
@@ -368,18 +281,18 @@
                                         <h3><i class="fa fa-user"></i> 游客? <span id="customer">点击此处登陆</span></h3>
                                         <div id="customer-login" class="coupon-content">
                                             <div class="coupon-info">
-                                                <p class="coupon-text">如果您之前曾与我们一起购物，请在下面的框中输入您的详细信息。如果您是新客户，请前往“结算和运输”部分。</p>
+                                                <p class="coupon-text">如果您拥有账户，请在下面的框中输入您的详细信息。如果您没有账户，请前往注册新的账户。</p>
                                                 <form action="#">
                                                     <p class="form-row-first">
-                                                        <label>用户名或邮箱 <span class="required">*</span></label>
+                                                        <label>邮箱 <span class="required">*</span></label>
                                                         <input type="text">
                                                     </p>
                                                     <p class="form-row-last">
-                                                        <label密码  <span class="required">*</span></label>
+                                                        <label> 密码<span class="required">*</span></label>
                                                         <input type="text">
                                                     </p>
                                                     <p class="form-row">					
-                                                        <input type="submit" value="Login">
+                                                        <input type="submit" value="登录">
                                                         <label>
                                                             <input type="checkbox">
                                                             记住账号 
@@ -388,6 +301,9 @@
                                                     <p class="lost-password">
                                                         <a href="#">忘记密码?</a>
                                                     </p>
+                                                    <div class="new-account">
+                                                            <p>无账号? <a href="register.html">点击注册一个新的账号</a></p>
+                                                        </div>
                                                 </form>
                                             </div>
                                         </div>
@@ -399,7 +315,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="billing-input">
-                                                        <label>地址<span class="required">*</span>
+                                                        <label>我的地址<span class="required">*</span>
                                                         </label>
                                                         <select v-model="defaultAddress">
                                                             <option v-for="item in order.customer.addressList" :value="item" >{{item.address}}</option>
@@ -421,19 +337,28 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="billing-input">
-                                                        <label>邮箱地址
+                                                        <label>地址
                                                             <span class="required">*</span>
                                                         </label>
-                                                        <input type="email" v-model="order.customer.email">
+                                                        <input type="email" v-model="defaultAddress.address">
                                                     </div>
                                                 </div>
+                                                <div class="col-md-6">
+                                                        <div class="billing-input">
+                                                            <label>其他
+                                                                <span class="required">*</span>
+                                                            </label>
+                                                            <input type="button" value="添加新地址">
+                                                        </div>
+                                                    </div>
+                                               
                                                 <div class="col-md-12">
                                                     <div class="billing-input">
                                                         <label>
                                                             备注
                                                             <span class="required">*</span>
                                                         </label>
-                                                        <textarea v-model="order.remark" id="checkout-mess" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                                        <textarea v-model="order.remark" id="checkout-mess" placeholder="填写您需要的备注"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -455,51 +380,20 @@
                                             <div class="payment-method">
                                                 <div class="payment-accordion">
                                                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                                        <div class="panel panel-default">
-                                                            <div class="panel-heading" role="tab" id="headingOne">
-                                                                <h4 class="panel-title">
-                                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                                    第一
-                                                                    </a>
-                                                                </h4>
-                                                            </div>
-                                                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                                                <div class="panel-body">
-                                                                    <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="panel panel-default">
-                                                            <div class="panel-heading" role="tab" id="headingTwo">
-                                                                <h4 class="panel-title">
-                                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                                    第二
-                                                                    </a>
-                                                                </h4>
-                                                            </div>
-                                                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                                                <div class="panel-body">
-                                                                    <p>Please send your cheque to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="panel panel-default">
-                                                            <div class="panel-heading" role="tab" id="headingThree">
-                                                                <h4 class="panel-title">
-                                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                                    第三
-                                                                    </a>
-                                                                </h4>
-                                                            </div>
-                                                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                                                <div class="panel-body">
-                                                                    <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                            <div class="col-md-12">
+                                                                    <div class="billing-input">
+                                                                        <select >
+                                                                            <option>支付宝</option>
+                                                                            <option>微信</option>
+                                                                            <option>银联</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    </div>
+                                                        
+                                                        
                                                     </div>
                                                     <div class="order-button-payment">
-                                                        <input @click="addOrder" type="submit" value="支付订单" />
+                                                        <input @click="addOrder" type="submit" value="确认支付" />
                                                     </div>								
                                                 </div>
                                             </div>
@@ -707,28 +601,28 @@
                 },
                 address:{
                     id:0,
-                    name:'李四',
+                    name:'张三',
                     phone:'12345678',
-                    address:'国王路国王好'
+                    address:'长沙市雨花区'
                 },
                 address1:{
                     id:0,
                     name:'李四',
                     phone:'12345678',
-                    address:'国王路'
+                    address:'常德市武陵源'
                 },
                 address2:{
                     id:0,
-                    name:'张三',
+                    name:'王五',
                     phone:'8888888',
-                    address:'国王好'
+                    address:'衡阳市雁峰区'
                 },
                 orderItem:{
                     commodity:{
                         id:0,
-                        title:'毛豆',
-                        description:'吃的',
-                        price:5,
+                        title:'耳机',
+                        description:'电子',
+                        price:105,
                         shelf:0,
                         recommed:0,
                         stock:123,
@@ -742,8 +636,8 @@
                 orderItem1:{
                     commodity:{
                         id:1,
-                        title:'撒酒',
-                        description:'吃的',
+                        title:'台灯',
+                        description:'家具',
                         price:53,
                         shelf:0,
                         recommed:0,

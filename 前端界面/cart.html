@@ -374,7 +374,7 @@
                             <th class="product-name">商品</th>
                             <th class="product-price">价格</th>
                             <th class="product-quantity">数量</th>
-                            <th class="product-subtotal">总价</th>
+                            <th class="product-subtotal">小计</th>
                             <th class="product-name">移除</th>
                           </tr>
                         </thead>
@@ -405,88 +405,15 @@
               </div>
               <!-- 运费税收，折扣 -->
               <div class="row tax-coupon-div">
-                <div class="col-md-7 col-sm-12 col-xs-12">
-                  <div class="tax-coupon-all">
-                    <div class="tax-coupon">
-                      <ul role="tablist">
-                        <li class="active">
-                          <a href="#tax" data-toggle="tab">Shipping and Tax</a>
-                        </li>
-                        <li>
-                          <a href="#coupon" data-toggle="tab">折扣券</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="tax-coupon-details tab-content">
-                      <div id="tax" class="shipping-dec tab-pane active">
-                        <p>Enter your destination to get a shipping estimate.</p>
-                        <div class="shipping-form">
-                          <div class="single-shipping-form">
-                            <label class="required get">country<em>*</em>
-                            </label>
-                            <select class="email s-email">
-                              <option value="">United States </option>
-                              <option value="AF">Afghanistan</option>
-                              <option value="AX">Åland Islands </option>
-                              <option value="AL">Albania</option>
-                              <option value="UZ">Uzbekistan</option>
-                              <option value="VU">Vanuatu</option>
-                              <option value="VA">Vatican City</option>
-                              <option value="VE">Venezuela</option>
-                              <option value="VN">Vietnam</option>
-                              <option value="WF">Wallis and Futuna</option>
-                              <option value="EH">Western Sahara</option>
-                              <option value="YE">Yemen</option>
-                              <option value="ZM">Zambia</option>
-                              <option value="ZW">Zimbabwe</option>
-                            </select>
-                          </div>
-                          <div class="single-shipping-form">
-                            <label class="required get"
-                              >State/Province <em>*</em>
-                            </label>
-                            <select class="email s-email">
-                              <option value="">Please select region</option>
-                              <option value="1">Alabama</option>
-                              <option value="61">Virginia</option>
-                              <option value="62">Washington</option>
-                              <option value="63">West Virginia</option>
-                              <option value="64">Wisconsin</option>
-                              <option value="65">Wyoming</option>
-                            </select>
-                          </div>
-                          <div class="single-shipping-form">
-                            <label class="required get">Zip/Postal Code<em>*</em>
-                            </label>
-                            <input placeholder="1234567" type="text" required=""/>
-                          </div>
-                          <div class="single-shipping-botton">
-                            <button type="submit">
-                              <span>Get a Quote</span>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      <div id="coupon" class="coupon-dec tab-pane">
-                        <p>Enter your coupon code if you have one.</p>
-                        <label class="required get">coupon<em>*</em></label>
-                        <input
-                          placeholder="coupon code"
-                          required=""
-                          type="text"
-                        />
-                        <button class="coupon-btn" type="submit">
-                          Apply Coupon
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-5 col-sm-12 col-xs-12">
+
+             
+
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="cart-total">
                     <ul>
-                      <li>小结<span>${{money}}</span></li>
-                      <li class="cart-black">Total<span>${{money}}</span></li>
+                      <li>总价<span>${{money}}</span></li>
+                      <li class="cart-black">合计<span>${{money}}</span></li>
                     </ul>
                     <div class="cart-total-btn">
                       <div class="cart-total-btn2 f-right" v-if="isChange" @click="changeQuantity"><a>保存订单</a>
@@ -712,13 +639,13 @@
           cartItem:{
             commodity:{
               id:0,
-              title:'红茶',
+              title:'耳机',
               description:'喝的',
-              price:5.0,
+              price:105.0,
               shelf:0,
               reconmmed:0,
               stock:0,
-              category:'饮品',
+              category:'电子',
               brand:'东腾特饮',
               specList:[] //商品规格列表
             },
@@ -727,13 +654,13 @@
           cartItem1:{
             commodity:{
               id:0,
-              title:'绿茶',
+              title:'台灯',
               description:'喝的',
               price:7.0,
               shelf:0,
               reconmmed:0,
               stock:0,
-              category:'饮品',
+              category:'家具',
               brand:'东腾特饮',
               specList:[] //商品规格列表
             },
