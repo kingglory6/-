@@ -249,7 +249,7 @@
               
 
 
-                <!-- 轮播1 -->
+                <!-- 移动菜单栏 -->
                 <div class="mobile-menu-area">
                     <div class="container">
                         <div class="row">
@@ -298,23 +298,13 @@
                 </div>
 
 
-                <!-- 轮播2 -->
+                <!-- 轮播 -->
                 <section class="hero-slider-container">
                     <div class="hero-slider owl-carousel">
-                        <div class="hero-slider-item hero-slider-item-1">
+                        <div v-for="item in recommedCommodity" class="hero-slider-item note" :style="{backgroundImage:'url('+item.specList[0].img+')'}">
                             <div class="hero-slider-contents">
                                 <div class="container">
-                                    <h1 class="title1">令人惊叹系列</h1>
-                                    <p class="title2">新品推荐 2019</p>
-                                    <a href="#" class="button-hover">现在购买</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="hero-slider-item hero-slider-item-2">
-                            <div class="hero-slider-contents">
-                                <div class="container">
-                                    <h1 class="title1">很棒的收藏</h1>
+                                    <h1 class="title1">{{item.title}}</h1>
                                     <p class="title2">新品推荐 2019</p>
                                     <a href="#" class="button-hover">现在购买</a>
                                 </div>
@@ -326,46 +316,6 @@
                     <a href="#" class="hero-slider-nav next"><i class="fa fa-angle-right"></i></a>
                 </section>
                 
-
-
-                <!-- 推荐 -->
-                <div class="banner-style-2 pt-100">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="banner-style-2-img mb-res">
-                                    <img src="assets/img/banner/6.jpg" alt="">
-                                    <div class="banner-style-2-dec">
-                                        <h4>激光扫描</h4>
-                                        <h3>减价30%</h3>
-                                        <a href="#">现在购买</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="banner-style-2-img mb-res">
-                                    <img src="assets/img/banner/7.jpg" alt="">
-                                    <div class="banner-style-2-dec">
-                                        <h4>台灯</h4>
-                                        <h3>假期优惠</h3>
-                                        <a href="#">现在购买</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="banner-style-2-img">
-                                    <img src="assets/img/banner/8.jpg" alt="">
-                                    <div class="banner-style-2-dec">
-                                        <h4>阿尔泰里奥</h4>
-                                        <h3>限时优惠</h3>
-                                        <a href="#">现在购买</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              
 
 
                 <!--精选-->
@@ -559,17 +509,18 @@
                         </div>		
                         <div class="row portfolio-style-2">
                             <div class="grid">
-                                <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
+                                <div class="col-md-3 col-sm-6 col-xs-12 mb-30" v-for="item in commodityList">
                                     <div class="single-shop">
                                         <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/1.jpg" alt="" /></a>
+                                            <a href="#"><img :src="item.specList[0].img" alt="" /></a>
                                             <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
+                                                <a @click=quickView(item) data-toggle="modal" data-target="#quick-view" title="快速查看">
                                                     <i class="pe-7s-look"></i>
                                                 </a>
                                             </div>
                                             <div class="price-up-down">
-                                                <span class="sale-new">销售</span>
+                                                <span class="sale-new" v-if="item.activity===1">折扣</span>
+                                                <span class="sale-new1" v-if="item.recommed===1">荐</span>
                                             </div>
                                             <div class="button-group">
                                                 <a href="#" title="Add to Cart">
@@ -585,268 +536,17 @@
                                         <div class="shop-text-all">
                                             <div class="title-color fix">
                                                 <div class="shop-title f-left">
-                                                    <h3><a href="#">激光投影</a></h3>
+                                                    <h3><a href="#">{{item.title}}</a></h3>
                                                 </div>
                                                 <span class="price f-right">
-                                                    <span class="new">$120.00</span>
+                                                    <span class="new">${{item.price}}</span>
                                                 </span>
                                             </div>
                                             <div class="fix">
-                                                <span class="f-left">数码产品</span>
-                                            </div>
-                                        </div>									
-                                    </div>
-                                </div>					
-                                <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/2.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                    添加到购物车
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    收藏
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">男士手表</a></h3>
-                                                </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
+                                                <span class="f-left">{{item.catagory}}</span>
                                             </div>
                                             <div class="fix">
-                                                <span class="f-left">数码产品</span>
-                                            </div>
-                                        </div>									
-                                    </div>						
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/3.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="price-up-down">
-                                                <span class="sale-new">-30%</span>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                    添加到购物车
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    收藏
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">投影仪</a></h3>
-                                                </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="f-left">数码产品</span>
-                                            </div>
-                                        </div>									
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/4.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                    添加到购物车
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    收藏
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">电脑耳机</a></h3>
-                                                </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="f-left">数码产品</span>
-                                            </div>
-                                        </div>									
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/5.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                    添加到购物车
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    收藏
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">电风扇</a></h3>
-                                                </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="f-left">家用电器</span>
-                                            </div>
-                                        </div>									
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/6.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="price-up-down">
-                                                <span class="sale-new">最新</span>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                    添加到购物车
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    收藏
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">微波炉</a></h3>
-                                                </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="f-left">家用电器</span>
-                                            </div>
-                                        </div>									
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/7.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                    添加到购物车
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    收藏
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">空调</a></h3>
-                                                </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="f-left">家用电器</span>
-                                            </div>
-                                        </div>									
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/8.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="price-up-down">
-                                                <span class="sale-new">-50%</span>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                    添加到购物车
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    收藏
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">小台灯</a></h3>
-                                                </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="f-left">家用电器</span>
+                                                    <span class="f-left">{{item.brand}}</span>
                                             </div>
                                         </div>									
                                     </div>
@@ -1094,26 +794,17 @@
                                                         <div class="col-xs-12 col-sm-5">
                                                             <div class="quick-image">
                                                                 <div class="single-quick-image tab-content text-center">
-                                                                    <div class="tab-pane  fade in active" id="sin-pro-1">
-                                                                        <img src="assets/img/shop/q1.jpg" alt="" />
+                                                                    <div v-for="(item,i) in commodityView.specList" :key="i" v-if="i===0" class="tab-pane fade in active" :id="i" >
+                                                                        <img :src="item.img" :alt="item.param" />
                                                                     </div>
-                                                                    <div class="tab-pane fade in" id="sin-pro-2">
-                                                                        <img src="assets/img/shop/q2.jpg" alt="" />
-                                                                    </div>
-                                                                    <div class="tab-pane fade in" id="sin-pro-3">
-                                                                        <img src="assets/img/shop/q3.jpg" alt="" />
-                                                                    </div>
-                                                                    <div class="tab-pane fade in" id="sin-pro-4">
-                                                                        <img src="assets/img/shop/q4.jpg" alt="" />
+                                                                    <div v-for="(item,i) in commodityView.specList" :key="i" v-if="i!=0" class="tab-pane fade in" :id="i" >
+                                                                            <img :src="item.img" :alt="item.param" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="quick-thumb">
                                                                     <div class="nav nav-tabs">
                                                                         <ul>
-                                                                            <li><a data-toggle="tab" href="#sin-pro-1"> <img src="assets/img/shop/q1.jpg" alt="quick view" /> </a></li>
-                                                                            <li><a data-toggle="tab" href="#sin-pro-2"> <img src="assets/img/shop/q2.jpg" alt="quick view" /> </a></li>
-                                                                            <li><a data-toggle="tab" href="#sin-pro-3"> <img src="assets/img/shop/q3.jpg" alt="quick view" /> </a></li>
-                                                                            <li><a data-toggle="tab" href="#sin-pro-4"> <img src="assets/img/shop/q4.jpg" alt="quick view" /> </a></li>
+                                                                            <li v-for="(item,index) in commodityView.specList" :key="index"><a data-toggle="tab" :href="`#${index}`"> <img :src="item.img" alt="quick view" /> </a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -1122,7 +813,7 @@
                                                         <div class="col-xs-12 col-sm-7">
                                                             <div class="quick-right">
                                                                 <div class="quick-right-text">
-                                                                    <h3><strong>电脑耳机</strong></h3>
+                                                                    <h3><strong>{{commodityView.title}}</strong></h3>
                                                                     <div class="rating">
                                                                         <i class="fa fa-star"></i>
                                                                         <i class="fa fa-star"></i>
@@ -1131,15 +822,15 @@
                                                                         <i class="fa fa-star-o"></i>
                                                                     </div>
                                                                     <div class="amount">
-                                                                        <h4>$65.00</h4>
+                                                                        <h4>${{commodityView.price}}</h4>
                                                                     </div>
-                                                                    <p>我跟你讲这是一个非常好的耳机你不买就亏大发了，我套你猴子的，赶紧买！</p>
-                                                                    <div class="row m-p-b">
+                                                                    <p>{{commodityView.description}}</p>
                                                                         <div class="col-sm-12 col-md-6">
                                                                             <div class="por-dse responsive-strok clearfix">
                                                                                 <ul>
-                                                                                    <li><span>存货</span><strong>:</strong>9999</li>
-                                                                                    <li><span>类型</span><strong>:</strong>耳机</li>
+                                                                                    <li><span>存货</span><strong>:</strong>{{commodityView.stock}}</li>
+                                                                                    <li><span>类型</span><strong>:<
+                                                                    <div class="row m-p-b">/strong>{{commodityView.catagory}}</li>
                                                                                     <li><span>功能</span><strong>:</strong> <a href="#">听歌</a> <a href="#">游戏</a> <a href="#">隔音</a></li>
                                                                                 </ul>
                                                                             </div>
@@ -1192,7 +883,6 @@
                         </div>
                     </div>
                 </div>
-           
 
             </div>
            
@@ -1206,27 +896,217 @@
         el:'.canvas-wrapper',
         data:{
             commodity:{
-                id:0,
-                title:'',
-                description:'',     //商品描述
+                id:1,
+                title:'红茶',
+                description:'我跟你讲这是一个非常好的耳机你不买就亏大发了，我套你猴子的，赶紧买！',     //商品描述
                 price:1000,
+                shelf:1,
+                recommed:1,     //推荐
+                stock:100,
+                catagory:'',
+                brand:'',
+                specList:[],
+                activity:0      //活动
+            },
+            spec:{
+                id:1,
+                param:'大大大',
+                img:'assets/img/slider/1.jpg'
+            },
+            recommedCommodity:[],
+            commodity1:{
+                id:2,
+                title:'来南昌',
+                description:'',     //商品描述
+                price:1006,
                 shelf:1,
                 recommed:1,//推荐
                 stock:100,
                 catagory:'',
                 brand:'',
-                specList:[]
+                specList:[],
+                activity:1
             },
-            spec:{
-                id:0,
-                param:'',
-                img:''
-            }
+            spec1:{
+                id:1,
+                param:'大大大',
+                img:'assets/img/slider/2.jpg'
+            },
+            commodity2:{
+                id:2,
+                title:'看美女',
+                description:'',     //商品描述
+                price:1006,
+                shelf:1,
+                recommed:1,//推荐
+                stock:100,
+                catagory:'',
+                brand:'',
+                specList:[],
+                activity:2
+            },
+            spec2:{
+                id:1,
+                param:'大大大',
+                img:'assets/img/slider/fashion1.jpg'
+            },
+            commodityList:[],
+            commodity3:{
+                id:2,
+                title:'电脑耳机',
+                description:'',     //商品描述
+                price:1006,
+                shelf:1,
+                recommed:0,//推荐
+                stock:100,
+                catagory:'数码产品',
+                brand:'UBL',
+                specList:[],
+                activity:0
+            },
+            spec3:{
+                id:1,
+                param:'大大大',
+                img:'assets/img/shop/electronics/4.jpg'
+            },
+            commodity4:{
+                id:2,
+                title:'台灯',
+                description:'',     //商品描述
+                price:1006,
+                shelf:1,
+                recommed:0,//推荐
+                stock:100,
+                catagory:'数码产品',
+                brand:'bbb',
+                specList:[],
+                activity:2
+            },
+            spec4:{
+                id:1,
+                param:'大大大',
+                img:'assets/img/shop/electronics/1.jpg'
+            },
+            commodity5:{
+                id:2,
+                title:'投影仪',
+                description:'',     //商品描述
+                price:1006,
+                shelf:1,
+                recommed:1,//推荐
+                stock:100,
+                catagory:'数码产品',
+                brand:'ccc',
+                specList:[],
+                activity:1
+            },
+            spec5:{
+                id:1,
+                param:'大大大',
+                img:'assets/img/shop/electronics/3.jpg'
+            },
+            commodity6:{
+                id:2,
+                title:'男士手表',
+                description:'',     //商品描述
+                price:1006,
+                shelf:1,
+                recommed:1,//推荐
+                stock:100,
+                catagory:'数码产品',
+                brand:'阿斯达',
+                specList:[],
+                activity:0
+            },
+            spec6:{
+                id:1,
+                param:'大大大',
+                img:'assets/img/shop/electronics/2.jpg'
+            },
+            commodity7:{
+                id:2,
+                title:'电风扇',
+                description:'',     //商品描述
+                price:1006,
+                shelf:1,
+                recommed:1,//推荐
+                stock:100,
+                catagory:'家用电器',
+                brand:'事实上',
+                specList:[],
+                activity:0
+            },
+            spec7:{
+                id:1,
+                param:'大大大',
+                img:'assets/img/shop/electronics/5.jpg'
+            },
+            commodity8:{
+                id:2,
+                title:'微波炉',
+                description:'',     //商品描述
+                price:1006,
+                shelf:1,
+                recommed:1,//推荐
+                stock:100,
+                catagory:'微波炉',
+                brand:'思考思考',
+                specList:[],
+                activity:0
+            },
+            spec8:{
+                id:1,
+                param:'大大大',
+                img:'assets/img/shop/electronics/6.jpg'
+            },
+            commodityView:{},
+
         },
         methods: {
             init:function(){
                 // 获取推荐商品
-                
+                // axios.get('').then(Response=>{
+                //     this.recommedCommodity=Response.data;
+                // });
+                this.recommedCommodity.push(this.commodity);
+                this.recommedCommodity[0].specList.push(this.spec);
+                this.recommedCommodity.push(this.commodity1);
+                this.recommedCommodity[1].specList.push(this.spec1);
+                this.recommedCommodity.push(this.commodity2);
+                this.recommedCommodity[2].specList.push(this.spec2);
+                console.log(this.recommedCommodity);
+                //获取商品
+                // axios.get('').then(Response=>{
+                //     this.commodityList=Response.data;
+                // });
+                this.commodityList.push(this.commodity);
+                this.commodityList[0].specList.push(this.spec4);
+                this.commodityList.push(this.commodity1);
+                this.commodityList[1].specList.push(this.spec6);
+                this.commodityList.push(this.commodity2);
+                this.commodityList[2].specList.push(this.spec8);
+                this.commodityList.push(this.commodity3);
+                this.commodityList[3].specList.push(this.spec3);
+                this.commodityList.push(this.commodity4);
+                this.commodityList[4].specList.push(this.spec4);
+                this.commodityList[4].specList.push(this.spec4);
+                this.commodityList.push(this.commodity5);
+                this.commodityList[5].specList.push(this.spec5);
+                this.commodityList[5].specList.push(this.spec4);
+                this.commodityList.push(this.commodity6);
+                this.commodityList[6].specList.push(this.spec6);
+                this.commodityList[6].specList.push(this.spec4);
+                this.commodityList.push(this.commodity7);
+                this.commodityList[7].specList.push(this.spec7);
+                this.commodityList[7].specList.push(this.spec4);
+                this.commodityList[7].specList.push(this.spec4);
+                this.commodityList.push(this.commodity8);
+                this.commodityList[8].specList.push(this.spec8);
+                this.commodityList[8].specList.push(this.spec4);
+                console.log(this.commodityList);
+            },
+            quickView:function(q){
+                this.commodityView=q;
             }
         },
         mounted() {
