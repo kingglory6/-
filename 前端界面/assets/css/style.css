@@ -722,7 +722,7 @@ a.button-hover::before {
     padding: 25px 15px 25px;
 }
 .sale-new {
-    background: #333 none repeat scroll 0 0;
+    background: rgb(255, 0, 0) none repeat scroll 0 0;
     color: #fff;
     font-size: 13px;
     font-weight: 500;
@@ -733,6 +733,21 @@ a.button-hover::before {
     text-align: left;
     text-transform: uppercase;
     top: 12px;
+    transform: rotate(-45deg);
+    z-index: 99;
+}
+.sale-new1 {
+    background: #00f none repeat scroll 0 0;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    left: -30px;
+    margin: 0;
+    padding: 1px 30px;
+    position: absolute;
+    text-align: right;
+    text-transform: uppercase;
+    top: 0px;
     transform: rotate(-45deg);
     z-index: 99;
 }
@@ -3594,9 +3609,9 @@ a#scrollUp:hover {
     width: 100%;
 }
 
-.hero-slider-item-1 {
+/* .hero-slider-item-1 {
     background-image: url('../img/slider/1.jpg');
-}
+} */
 
 .hero-slider-item-2 {
     background-image: url('../img/slider/2.jpg');
