@@ -328,16 +328,16 @@
                             <button class="active" data-filter=".mix1">全部 </button>
                             <button data-filter=".mix2">最新上架</button>
                             <button data-filter=".mix3">最佳销售 </button>
-                            <button data-filter=".mix4">最佳流行 </button>
+                            <button data-filter=".mix4">折扣活动 </button>
                         </div>			
                         <div class="row portfolio-style-2">
                             <div class="grid">
-                                <div class="col-md-3 col-sm-6 col-xs-12 grid-item mix2 mix4 mix1 mix3 mb-30">
+                                <div v-for="item in commodityList" class="col-md-3 col-sm-6 col-xs-12 grid-item mix2 mix4 mix1 mix3 mb-30">
                                     <div class="single-shop">
                                         <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/4.jpg" alt="" /></a>
+                                            <a href="#"><img :src="item.specList[0].img" alt="" /></a>
                                             <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
+                                                <a @click=quickView(item) data-toggle="modal" data-target="#quick-view" title="快速查看">
                                                     <i class="pe-7s-look"></i>
                                                 </a>
                                             </div>
@@ -355,14 +355,15 @@
                                         <div class="shop-text-all">
                                             <div class="title-color fix">
                                                 <div class="shop-title f-left">
-                                                    <h3><a href="#">电脑耳机</a></h3>
+                                                    <h3><a href="#">{{item.title}}</a></h3>
                                                 </div>
                                                 <span class="price f-right">
-                                                    <span class="new">$120.00</span>
+                                                    <span class="new">${{item.price}}</span>
                                                 </span>
                                             </div>
                                             <div class="fix">
-                                                <span class="f-left">数码产品</span>
+                                                <span class="f-left">{{item.catagory}}</span>
+                                                <span class="f-right">{{item.brand}}</span>
                                             </div>
                                         </div>									
                                     </div>
@@ -477,7 +478,7 @@
                                             </div>
                                         </div>									
                                     </div>						
-                                </div>
+                                </div>				
                             </div>		
                         </div>
                     </div>
@@ -844,7 +845,6 @@
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
                                                                     <div class="dse-btn">
                                                                         <div class="row">
                                                                             <div class="col-sm-12 col-md-12">
@@ -1060,7 +1060,6 @@
                 img:'assets/img/shop/electronics/6.jpg'
             },
             commodityView:{},
-
         },
         methods: {
             init:function(){
