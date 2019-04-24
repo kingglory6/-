@@ -504,6 +504,9 @@
                         
                         console.log(res)
                         this.client=res.data;
+                        let customer=JSON.stringify(this.client)
+                        sessionStorage.setItem("customer",customer);
+                        console.log(sessionStorage.getItem("customer"))
                         window.location.href='index.html';
                     })
                     .catch(err => {
