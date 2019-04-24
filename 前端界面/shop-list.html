@@ -417,15 +417,25 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- 分页  -->
-                                                    <div class="page-pagination text-center">
-                                                        <ul>
-                                                            <li><a href="#Previous" @click="changePage(-1)"><i class="fa fa-angle-double-left"></i></a></li>
-                                                            <li v-for="(n, index) in pages" :key="index" :class="{active:(pageNew===index+1)}">
-                                                                <a @click="selectPage(index)" :href="`#${index}`">{{index+1}}</a></li>
-                                                            <li><a href="#Next"><i class="fa fa-angle-double-right"></i></a></li>
+                                                    <!-- 分页显示 -->
+                                                    <nav aria-label="Page navigation">
+                                                        <ul class="pagination">
+                                                            <li :class="(pageNew===1)?classPageC:classPageB"><!-- disabled 不允许点击-->
+                                                                <a class="page-link" @click="changePage(-1)" aria-label="Previous">
+                                                                    <span aria-hidden="true">&laquo;</span>
+                                                                    <span class="sr-only">Previous</span>
+                                                                </a>
+                                                            </li>
+                                                            <li v-for="(n, index) in pages" :key="index" :class="(pageNew===index+1)?classPageA:classPageB"><a class="page-link" @click="selectPage(index)">{{index+1}}</a></li>
+                                                            <li :class="(pageNew===pages)?classPageC:classPageB">
+                                                                <a class="page-link" @click="changePage(1)" aria-label="Next">
+                                                                    <span aria-hidden="true">&raquo;</span>
+                                                                    <span class="sr-only">Next</span>
+                                                                </a>
+                                                            </li>
                                                         </ul>
-                                                    </div>
+                                                    </nav>
+                                                    <!-- 分页结束 -->
                                                 </div>
                                             </div>
                                         </div>
@@ -896,8 +906,9 @@
             commodityView:{},//快速查看
             pageNew:2,
             pages:5,
-            classPageA:'active',
-            classPageB:'',
+            classPageA:'page-item active',
+            classPageB:'page-item',
+            classPageC:'page-item disabled',
             classMixC:'col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix4 mb-30',
             classMixB:'col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix3 mb-30',
             classMixA:'col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix2 mb-30',
@@ -977,8 +988,8 @@
                 if(this.pageNew<=0){
                     this.pageNew=1;
                 };
-                if(this.pageNew>=this.pages.length){
-                    this.pageNew=this.pages.length;
+                if(this.pageNew>=this.pages){
+                    this.pageNew=this.pages;
                 };
                 console.log(this.pageNew);
             },
