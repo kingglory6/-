@@ -378,23 +378,23 @@
                             <th class="product-name">移除</th>
                           </tr>
                         </thead>
-                        <tbody v-for="item in customer.cart">
-                          <tr v-for="p in item.param">
+                        <tbody>
+                          <tr v-for="p in cart">
                             <td class="product-thumbnail">
-                              <a href="#"><img v-bind:src='p.spec.img' alt=""/></a>
+                              <a :href="`#${p.spec.param}`"><img v-bind:src='p.spec.img' :alt="`#${p.spec.param}`"/></a>
                             </td>
                             <td class="product-name">
-                              <a href="#">{{item.commodity.title}}</a>
+                              <a href="#">{{p.commodity.title}}</a>
                             </td>
                             <td class="product-price">
-                              <span class="amount">${{item.commodity.price}}</span>
+                              <span class="amount">${{p.commodity.price}}</span>
                             </td>
                             <td class="product-quantity">
                               <input v-model="p.quantity" @click="change" type="number" />
                             </td>
-                            <td class="product-subtotal">${{item.commodity.price*p.quantity}}</td>
+                            <td class="product-subtotal">${{p.commodity.price*p.quantity}}</td>
                             <td class="product-remove">
-                              <i class="fa fa-times" @click="del(p.spec.id)"></i>
+                              <i class="fa fa-times" @click="del(p.commodity.id,p.spec.id)"></i>
                             </td>
                           </tr>
                         </tbody>
@@ -416,7 +416,7 @@
                       <li class="cart-black">合计<span>${{money}}</span></li>
                     </ul>
                     <div class="cart-total-btn">
-                      <div class="cart-total-btn2 f-right" v-if="isChange" @click="changeQuantity"><a>保存订单</a>
+                      <div class="cart-total-btn2 f-right" v-if="isChange" @click="changeQuantity"><a>保存购物车</a>
                       </div>
                       <div class="cart-total-btn1 f-right" v-else>
                           <a href="checkout.html">结帐</a>
@@ -627,15 +627,7 @@
       new Vue({
         el: "#cart",
         data: {
-          customer:{
-            id:0,
-            netname:'李四',
-            phone:'12345678',
-            email:'123@qq.com',
-            password:'',
-            addressList:[],
-            cart:[]
-          },
+          url :'192.168.43.98',
           cartItem:{
             commodity:{
               id:0,
@@ -647,73 +639,39 @@
               stock:0,
               category:'电子',
               brand:'东腾特饮',
-              specList:[] //商品规格列表
+              // specList:[] //商品规格列表
             },
-            param:[]//购物车项参数列表
-          },
-          cartItem1:{
-            commodity:{
-              id:0,
-              title:'台灯',
-              description:'喝的',
-              price:7.0,
-              shelf:0,
-              reconmmed:0,
-              stock:0,
-              category:'家具',
-              brand:'东腾特饮',
-              specList:[] //商品规格列表
+            spec:{
+              id:'',
+              param:'',
+              img:''
             },
-            param:[]//购物车项参数列表
-          },           
-          cartItemParam:{        //购物车项参数
-            quantity:11,
-            spec:{
-              id:1,
-              param:'',       //商品参数
-              img:'assets/img/cart/1.jpg'          //图片路径
-            }
-          },
-          cartItemParam1:{        //购物车项参数
-            quantity:5,
-            spec:{
-              id:2,
-              param:'',       //商品参数
-              img:'assets/img/cart/1.jpg'          //图片路径
-            }
-          },
-          cartItemParam2:{        //购物车项参数
-            quantity:5,
-            spec:{
-              id:3,
-              param:'',       //商品参数
-              img:'assets/img/cart/1.jpg'          //图片路径
-            }
-          },
+            quantity:0,
+          }, 
+          cart:[],
           money:0,
-          isChange:false
+          isChange:false,
+          pagenum:1,
         },
         methods: {
           // 初始化,获取购物车列表
           init:function(){
-            // axios.get('').then(Response=>{this.customer=Response.data;});
-            this.customer.cart.push(this.cartItem);
-            this.customer.cart.push(this.cartItem1);
-            this.customer.cart[0].param.push(this.cartItemParam);
-            this.customer.cart[0].param.push(this.cartItemParam1);
-            this.customer.cart[1].param.push(this.cartItemParam2);
-            console.log(this.customer);
-            for(var n=0;n<this.customer.cart.length;n++){
-              for(var m=0;m<this.customer.cart[n].param.length;m++){
-                this.money=this.money+(this.customer.cart[n].param[m].quantity*this.customer.cart[n].commodity.price);
-              }
+            axios.get(`${this.url}`/api/v1/cart/check/`${this.pagenum}`).then(Response=>{this.cart=Response.data;});
+            console.log(this.cart);
+            for(var n=0;n<this.cart.length;n++){
+              this.money=this.money+(this.cart[n].quantity*this.cart[n].commodity.price);
             }
           },
 
           // 删除订单项
-          del:function(sid){
-            console.log(sid);
-            // axios.post('',this.customer.id,sid).then((Response)=>{});
+          del:function(cid,sid){
+            console.log('删除商品:'+cid);
+            console.log('规格id:'+sid);
+            const param = new URLSearchParams();
+            param.append("cid",cid);
+            param.append("sid",sid);
+            axios.post(`${this.url}`/api/v1/cart/dlt,param).then((Response)=>{});
+            this.init();
           },
 
           // 是否修改
@@ -721,16 +679,17 @@
             this.isChange=true;
           },
 
-          // 修改订单数量
+          // 修改购物车数量
           changeQuantity:function(){
-            for(var n=0;n<this.customer.cart.length;n++){
-              for(var m=0;m<this.customer.cart[n].param.length;m++){
-                console.log(this.customer.cart[n].param[m].quantity);
-                this.money=this.money+(this.customer.cart[n].param[m].quantity*this.customer.cart[n].commodity.price);
-                // axios.post('',this.customer.id,this.customer.cart[n].param[m].spec.id,this.customer.cart[n].param[m].quantity).then(Response=>{});
-              }
+            for(var n=0;n<this.cart.length;n++){
+                console.log(this.cart[n].quantity);
+                this.money=this.money+(this.cart[n].quantity*this.cart[n].commodity.price);
+                const param=new URLSearchParams();
+                param.append("sid",this.cart[n].spec.id);
+                param.append("cid",this.cart[n].commodity.id);
+                param.append("quantity",this.cart[n].quantity);
+                axios.post(`${this.url}`/api/v1/cart/change,param).then(Response=>{});
             };
-            // axios.post('',this.customer).then(Response=>{});
             this.isChange=false;
           }
         },

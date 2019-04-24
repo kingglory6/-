@@ -605,18 +605,6 @@
                     phone:'12345678',
                     address:'长沙市雨花区'
                 },
-                address1:{
-                    id:0,
-                    name:'李四',
-                    phone:'12345678',
-                    address:'常德市武陵源'
-                },
-                address2:{
-                    id:0,
-                    name:'王五',
-                    phone:'8888888',
-                    address:'衡阳市雁峰区'
-                },
                 orderItem:{
                     commodity:{
                         id:0,
@@ -633,25 +621,9 @@
                     quantity:12,
                     param:'',
                 },
-                orderItem1:{
-                    commodity:{
-                        id:1,
-                        title:'台灯',
-                        description:'家具',
-                        price:53,
-                        shelf:0,
-                        recommed:0,
-                        stock:123,
-                        category:'ccc',
-                        brand:'bbb',
-                        specList:[]
-                    },
-                    quantity:12,
-                    param:'',
-                    remark:''
-                },
                 name:'',
-                defaultAddress:{}
+                defaultAddress:{},      //默认地址，当前选择的地址
+                pagenum:1,              //当前页码
             },
             methods: {
                 // 初始化,获取订单列表
@@ -672,7 +644,9 @@
 
                 //支付订单 完成跳转首页
                 addOrder:function(){
-                    // axios.post('',this.order).then(Response=>{});
+                    const param=new URLSearchParams();
+                    param.append("Orders",this.order)
+                    axios.post(`${this.url}/api/v1/order/add`,param).then(Response=>{});
                     console.log('支付成功');                    
                 }
             },
