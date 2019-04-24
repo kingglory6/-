@@ -489,7 +489,7 @@
               methods: {
 
                 showDetails:function(){
-                        this.$http.get("URL").then((response)=>{
+                        this.$http.post("URL").then((response)=>{
                             console.log(response);
                             alert(response.data);
                             },function(){
