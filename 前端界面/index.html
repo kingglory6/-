@@ -170,49 +170,14 @@
                                                     <li class="mega-position"><a href="shop-page.html">类型 </a>
                                                         <div class="mega-menu mega-3-colm">
                                                             <ul>
-                                                                <li class="menu-title uppercase">衣物</li>
-                                                                <li><a href="shop-page.html">外套</a></li>
-                                                                <li><a href="shop-page.html">衬衫 </a></li>
-                                                                <li><a href="shop-page.html">领带</a></li>
-                                                                <li><a href="shop-page.html">大衣</a></li>
-                                                                <li><a href="#"> 夹克</a></li>
-                                                                <li><a href="shop-page.html">T-血衫</a></li>
-                                                                <li><a href="shop-page.html">裤子</a></li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li class="menu-title uppercase">鞋</li>
-                                                                <li><a href="shop-page.html">平板</a></li>
-                                                                <li><a href="shop-page.html">靴子</a></li>
-                                                                <li><a href="shop-page.html">运动鞋</a></li>
-                                                                <li><a href="shop-page.html">拖鞋</a></li>
-                                                                <li><a href="shop-page.html">长筒鞋</a></li>
-                                                                <li><a href="shop-page.html">休闲鞋</a></li>
-                                                                <li><a href="shop-page.html">短袜</a></li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li class="menu-img">
-                                                                    <a href="shop-page.html"><img src="assets/img/shop/1.jpg" alt=""></a>
-                                                                </li>
+                                                                <li v-for="item in catagoryList"><a href="shop-page.html">{{item}}</a></li>
                                                             </ul>
                                                         </div>
                                                     </li>
                                                     <li><a href="shop-page.html">品牌</a>
                                                         <div class="mega-menu mega-2-colm">
                                                             <ul>
-                                                                <li class="menu-title uppercase">珠宝</li>
-                                                                <li><a href="shop-page.html">戒指</a></li>
-                                                                <li><a href="shop-page.html">盒子</a></li>
-                                                                <li><a href="shop-page.html">头冠</a></li>
-                                                                <li><a href="shop-page.html">腕带</a></li>
-                                                                <li><a href="shop-page.html">手镯</a></li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li class="menu-title uppercase">鞋</li>
-                                                                <li><a href="shop-page.html">平板</a></li>
-                                                                <li><a href="shop-page.html">靴子</a></li>
-                                                                <li><a href="shop-page.html">运动鞋</a></li>
-                                                                <li><a href="shop-page.html">拖鞋</a></li>
-                                                                <li><a href="shop-page.html">长筒鞋</a></li>
+                                                                <li v-for="item in brandList"><a href="shop-page.html">{{item}}</a></li>
                                                             </ul>
                                                         </div>
                                                     </li>
@@ -326,13 +291,15 @@
                         </div>
                         <div class="shop-menu portfolio-left-menu text-center mb-50">
                             <button class="active" data-filter=".mix1">全部 </button>
-                            <button data-filter=".mix2">最新上架</button>
-                            <button data-filter=".mix3">最佳销售 </button>
-                            <button data-filter=".mix4">折扣活动 </button>
-                        </div>			
+                            <button data-filter=".mix2">秒杀活动 </button>
+                            <button data-filter=".mix3">折扣活动 </button>
+                            <button data-filter=".mix4">其他 </button>
+                        </div>	
+
+                        <!-- 商品展示 -->
                         <div class="row portfolio-style-2">
                             <div class="grid">
-                                <div v-for="item in commodityList" class="col-md-3 col-sm-6 col-xs-12 grid-item mix2 mix4 mix1 mix3 mb-30">
+                                <!-- <div v-for="item in commodityList" :class="{classMixA: item.activity===1,classMixB: item.activity===2,classMixC: (item.activity!=1&item.activity!=2)}">
                                     <div class="single-shop">
                                         <div class="shop-img">
                                             <a href="#"><img :src="item.specList[0].img" alt="" /></a>
@@ -341,8 +308,13 @@
                                                     <i class="pe-7s-look"></i>
                                                 </a>
                                             </div>
+                                            <div class="price-up-down">
+                                                <span class="sale-new" v-if="item.activity===1">折扣</span>
+                                                <span class="sale-new" v-if="item.activity===2">秒杀</span>
+                                                <span class="sale-new1" v-if="item.recommed===1">荐</span>
+                                            </div>
                                             <div class="button-group">
-                                                <a href="#" title="Add to Cart">
+                                                <a @click="addCart(item)" title="Add to Cart">
                                                     <i class="pe-7s-cart"></i>
                                                     添加到购物车
                                                 </a>
@@ -367,120 +339,154 @@
                                             </div>
                                         </div>									
                                     </div>
+                                </div> -->
+                                <div v-for="item in commodityList" v-if="item.activity!=1&item.activity!=2" class="col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix4 mb-30">
+                                        <div class="single-shop">
+                                            <div class="shop-img">
+                                                <a href="#"><img :src="item.specList[0].img" alt="" /></a>
+                                                <div class="shop-quick-view">
+                                                    <a @click=quickView(item) data-toggle="modal" data-target="#quick-view" title="快速查看">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                    </div>
+                                                    <div class="price-up-down">
+                                                        <span class="sale-new" v-if="item.activity===1">折扣</span>
+                                                        <span class="sale-new" v-if="item.activity===2">秒杀</span>
+                                                        <span class="sale-new1" v-if="item.recommed===1">荐</span>
+                                                    </div>
+                                                    <div class="button-group">
+                                                        <a @click="addCart(item)" title="Add to Cart">
+                                                            <i class="pe-7s-cart"></i>
+                                                            添加到购物车
+                                                        </a>
+                                                        <a class="wishlist" @click="wishlist(item)" title="Wishlist">
+                                                            <i class="pe-7s-like"></i>
+                                                            收藏
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="shop-text-all">
+                                                    <div class="title-color fix">
+                                                        <div class="shop-title f-left">
+                                                            <h3><a href="#">{{item.title}}</a></h3>
+                                                        </div>
+                                                        <span class="price f-right">
+                                                            <span class="new">${{item.price}}</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="fix">
+                                                        <span class="f-left">{{item.catagory}}</span>
+                                                        <span class="f-right">{{item.brand}}</span>
+                                                    </div>
+                                                </div>									
+                                            </div>
                                 </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix4 mix3 mb-30">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/1.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="price-up-down">
-                                                <span class="sale-new">销售</span>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                    添加到购物车
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    收藏
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">台灯</a></h3>
+                                <div v-for="item in commodityList" v-if="item.activity===1" class="col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix2 mb-30">
+                                        <div class="single-shop">
+                                                <div class="shop-img">
+                                                    <a href="#"><img :src="item.specList[0].img" alt="" /></a>
+                                                    <div class="shop-quick-view">
+                                                        <a @click=quickView(item) data-toggle="modal" data-target="#quick-view" title="快速查看">
+                                                            <i class="pe-7s-look"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="price-up-down">
+                                                        <span class="sale-new" v-if="item.activity===1">折扣</span>
+                                                        <span class="sale-new" v-if="item.activity===2">秒杀</span>
+                                                        <span class="sale-new1" v-if="item.recommed===1">荐</span>
+                                                    </div>
+                                                    <div class="button-group">
+                                                        <a @click="addCart(item)" title="Add to Cart">
+                                                            <i class="pe-7s-cart"></i>
+                                                            添加到购物车
+                                                        </a>
+                                                        <!-- <a class="wishlist" href="#" title="Wishlist">
+                                                            <i class="pe-7s-like"></i>
+                                                            收藏
+                                                        </a> -->
+                                                    </div>
                                                 </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
+                                                <div class="shop-text-all">
+                                                    <div class="title-color fix">
+                                                        <div class="shop-title f-left">
+                                                            <h3><a href="#">{{item.title}}</a></h3>
+                                                        </div>
+                                                        <span class="price f-right">
+                                                            <span class="new">${{item.price}}</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="fix">
+                                                        <span class="f-left">{{item.catagory}}</span>
+                                                        <span class="f-right">{{item.brand}}</span>
+                                                    </div>
+                                                </div>									
                                             </div>
-                                            <div class="fix">
-                                                <span class="f-left">数码产品</span>
-                                            </div>
-                                        </div>									
-                                    </div>
                                 </div>	
-                                <div class="col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix3 mix2 mb-30">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/3.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="price-up-down">
-                                                <span class="sale-new">-30%</span>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                   添加到购物车
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    收藏
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">投影仪</a></h3>
+                                <div v-for="item in commodityList" v-if="item.activity===2" class="col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix3 mb-30">
+                                        <div class="single-shop">
+                                                <div class="shop-img">
+                                                    <a href="#"><img :src="item.specList[0].img" alt="" /></a>
+                                                    <div class="shop-quick-view">
+                                                        <a @click=quickView(item) data-toggle="modal" data-target="#quick-view" title="快速查看">
+                                                            <i class="pe-7s-look"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="price-up-down">
+                                                        <span class="sale-new" v-if="item.activity===1">折扣</span>
+                                                        <span class="sale-new" v-if="item.activity===2">秒杀</span>
+                                                        <span class="sale-new1" v-if="item.recommed===1">荐</span>
+                                                    </div>
+                                                    <div class="button-group">
+                                                        <a @click="addCart(item)" title="Add to Cart">
+                                                            <i class="pe-7s-cart"></i>
+                                                            添加到购物车
+                                                        </a>
+                                                        <!-- <a class="wishlist" href="#" title="Wishlist">
+                                                            <i class="pe-7s-like"></i>
+                                                            收藏
+                                                        </a> -->
+                                                    </div>
                                                 </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
+                                                <div class="shop-text-all">
+                                                    <div class="title-color fix">
+                                                        <div class="shop-title f-left">
+                                                            <h3><a href="#">{{item.title}}</a></h3>
+                                                        </div>
+                                                        <span class="price f-right">
+                                                            <span class="new">${{item.price}}</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="fix">
+                                                        <span class="f-left">{{item.catagory}}</span>
+                                                        <span class="f-right">{{item.brand}}</span>
+                                                    </div>
+                                                </div>									
                                             </div>
-                                            <div class="fix">
-                                                <span class="f-left">数码产品</span>
-                                            </div>
-                                        </div>									
-                                    </div>
                                 </div>				
-                                <div class="col-md-3 col-sm-6 col-xs-12 grid-item mix2 mix1 mix4 mb-30">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/2.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                    添加到购物车
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    收藏
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">男士手表</a></h3>
-                                                </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="f-left">数码产品</span>
-                                            </div>
-                                        </div>									
-                                    </div>						
-                                </div>				
-                            </div>		
+                            </div>	
+
+                            <!-- 分页显示 -->
+                            <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                              <li class="page-item disabled">
+                                <a class="page-link" @click="changePage(-1)" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                              </li>
+                              <li v-for="(n, index) in pages" :key="index" :class="(pageNew===index+1)?classPageA:classPageB"><a class="page-link" @click="selectPage(index)">{{index+1}}</a></li>
+                              <li class="page-item">
+                                <a class="page-link" @click="changePage(1)" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                              </li>
+                            </ul>
+                            </nav>
+                          <!-- 分页结束 -->	
                         </div>
+
+                        
                     </div>
                 </div>
                 
@@ -503,7 +509,7 @@
 
 
                 <!-- 新产品推荐 -->
-                <div class="portfolio-area pt-100 pb-70">
+                <!-- <div class="portfolio-area pt-100 pb-70">
                     <div class="container">
                         <div class="section-title text-center mb-50">
                             <h2>新产品<i class="fa fa-shopping-cart"></i></h2>
@@ -555,7 +561,7 @@
                             </div>		
                         </div>
                     </div>
-                </div>
+                </div> -->
                
 
                 <!-- 最新消息 -->
@@ -1059,7 +1065,17 @@
                 param:'大大大',
                 img:'assets/img/shop/electronics/6.jpg'
             },
-            commodityView:{},
+            commodityView:{},//快速查看
+            pageNew:2,
+            pages:5,
+            classPageA:'page-item active',
+            classPageB:'page-item',
+            classMixC:'col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix4 mb-30',
+            classMixB:'col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix3 mb-30',
+            classMixA:'col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix2 mb-30',
+            catagoryList:[],
+            brandList:[],
+            link:'</li></ul><ul><li>',
         },
         methods: {
             init:function(){
@@ -1074,9 +1090,11 @@
                 this.recommedCommodity.push(this.commodity2);
                 this.recommedCommodity[2].specList.push(this.spec2);
                 console.log(this.recommedCommodity);
+
                 //获取商品
                 // axios.get('').then(Response=>{
-                //     this.commodityList=Response.data;
+                //     this.commodityList=Response.data.list;
+                //     this.pages=Response.data.size;
                 // });
                 this.commodityList.push(this.commodity);
                 this.commodityList[0].specList.push(this.spec4);
@@ -1103,9 +1121,49 @@
                 this.commodityList[8].specList.push(this.spec8);
                 this.commodityList[8].specList.push(this.spec4);
                 console.log(this.commodityList);
+
+                // 获取商品类别列表
+                // axios.get('').then(Response=>{
+                // this.catagoryList=Response.data;
+                // });
+                this.catagoryList=['水果','健身器材','数码产品','日用品','书','宠物','衣服','鞋子']
+
+                // 获取商品品牌列表
+                // axios.get('').then(Response=>{
+                //     this.brandList=Response.data;
+                // });
+                this.brandList=['怡宝','思科','华为','阿迪达斯'];
             },
             quickView:function(q){
                 this.commodityView=q;
+            },
+            selectPage:function(i){
+                this.pageNew=i+1;
+                // axios.get('').then(Response=>{
+                //     this.commodityList=Response.data;
+                // });
+            },
+            changePage:function(n){
+                this.pageNew+=n;
+                if(this.pageNew<=0){
+                    this.pageNew=1;
+                };
+                if(this.pageNew>=this.pages.length){
+                    this.pageNew=this.pages.length;
+                };
+                console.log(this.pageNew);
+            },
+
+            // 添加购物车
+            addCart:function(c){
+                // axios.post('',c).then(Response=>{})
+                console.log('添加购物车')
+            },
+
+            // 收藏
+            wishlist:function(c){
+                // axios.post('',c).then(Response=>{})
+                console.log('收藏');
             }
         },
         mounted() {
