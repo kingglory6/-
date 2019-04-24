@@ -26,11 +26,13 @@
         <link rel="stylesheet" type="text/css" href="assets/css/demo.css" />
         <link rel="stylesheet" type="text/css" href="assets/css/sj-nav.css" />
         <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
     <body>
 
 
-        <div class="canvas-wrapper">
+        <div class="canvas-wrapper" id="order">
 
             <!-- 个人中心 -->
             <div class="menu-wrap">
@@ -486,6 +488,34 @@
             </div>
             <!-- content-wrap end -->
         </div>
+
+        <script>
+        new Vue({
+            el:"#order",
+            data:{
+                url:"http://192.168.43.98",
+                order:[]
+
+            },
+            methods: {
+                order:function(){
+                    axios.get(`${this.url}`/api/v1/order/find/(`${pagenum}`)/`${sendstatus}`/`${paystatus}`
+                    )
+                    .then(function (response) {
+                        console.log(response.data)
+                        this.order=response.data;
+
+                    })
+                    .catch(function (error) {
+                    })
+
+                }
+                
+                
+            },
+
+        });
+        </script>
 		
 		
 
