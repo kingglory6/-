@@ -342,12 +342,12 @@
                                 </div> -->
                                 <div v-for="item in commodityList" v-if="item.activity!=1&item.activity!=2" class="col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix4 mb-30">
                                         <div class="single-shop">
-                                                <div class="shop-img">
-                                                    <a href="#"><img :src="item.specList[0].img" alt="" /></a>
-                                                    <div class="shop-quick-view">
-                                                        <a @click=quickView(item) data-toggle="modal" data-target="#quick-view" title="快速查看">
-                                                            <i class="pe-7s-look"></i>
-                                                        </a>
+                                            <div class="shop-img">
+                                                <a href="#"><img :src="item.specList[0].img" alt="" /></a>
+                                                <div class="shop-quick-view">
+                                                    <a @click=quickView(item) data-toggle="modal" data-target="#quick-view" title="快速查看">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
                                                     </div>
                                                     <div class="price-up-down">
                                                         <span class="sale-new" v-if="item.activity===1">折扣</span>
@@ -359,10 +359,10 @@
                                                             <i class="pe-7s-cart"></i>
                                                             添加到购物车
                                                         </a>
-                                                        <!-- <a class="wishlist" href="#" title="Wishlist">
+                                                        <a class="wishlist" @click="wishlist(item)" title="Wishlist">
                                                             <i class="pe-7s-like"></i>
                                                             收藏
-                                                        </a> -->
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div class="shop-text-all">
@@ -1153,10 +1153,17 @@
                 };
                 console.log(this.pageNew);
             },
+
             // 添加购物车
             addCart:function(c){
                 // axios.post('',c).then(Response=>{})
                 console.log('添加购物车')
+            },
+
+            // 收藏
+            wishlist:function(c){
+                // axios.post('',c).then(Response=>{})
+                console.log('收藏');
             }
         },
         mounted() {
