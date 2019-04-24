@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/sj-nav.css" />
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <div class="canvas-wrapper" id="cart">
@@ -45,7 +46,7 @@
             <a href="login.html"><img src="assets/img/language/ge.png" alt="" /><span>德语</span></a>
             <h5 class="mt-2">我的账户:</h5>
             <a href="cart.html"><i class="pe-7s-cart"></i><span>我的购物车</span></a>
-            <a href="wishlist.html"><i class="pe-7s-like"></i><span>我的订单</span></a>
+            <a href="order.html"><i class="pe-7s-like"></i><span>我的订单</span></a>
             <a href="checkout.html"><i class="pe-7s-check"></i><span>结算</span></a>
             <a href="login.html"><i class="pe-7s-next-2"></i><span>登录</span></a>
             <a href="register.html"><i class="pe-7s-add-user"></i><span>注册</span></a>
@@ -281,67 +282,7 @@
           </header>
           <!-- 导航结束 -->
 
-          <!-- 移动菜单栏 start -->
-          <div class="mobile-menu-area">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="mobile-menu">
-                    <nav id="dropdown">
-                      <ul>
-                        <li>
-                          <a class="active1" href="index.html">Home</a>
-                          <ul>
-                            <li><a href="index.html">home version 1 </a></li>
-                            <li><a href="index-2.html">home version 2 </a></li>
-                            <li><a href="index-3.html">home version 3 </a></li>
-                          </ul>
-                        </li>
-                        <li class="active1">
-                          <a class="active1" href="#">Pages</a>
-                          <ul>
-                            <li><a href="about-us.html">about us </a></li>
-                            <li><a href="cart.html">cart</a></li>
-                            <li><a href="checkout.html">checkout</a></li>
-                            <li><a href="wishlist.html">wishlist</a></li>
-                            <li><a href="login.html">login</a></li>
-                            <li><a href="register.html">register</a></li>
-                            <li><a href="contact.html">contact</a></li>
-                            <li><a href="shop-page.html">shop page</a></li>
-                            <li><a href="shop-list.html">shop list</a></li>
-                            <li>
-                              <a href="single-product.html">single product</a>
-                            </li>
-                            <li><a href="404.html">404 page</a></li>
-                          </ul>
-                        </li>
-                        <li class="active1">
-                          <a class="active1" href="#">Blog</a>
-                          <ul>
-                            <li><a href="blog-page.html">blog-page</a></li>
-                            <li>
-                              <a href="blog-sidebar.html">blog left sidebar</a>
-                            </li>
-                            <li>
-                              <a href="blog-right-sidebar.html"
-                                >blog right sidebar
-                              </a>
-                            </li>
-                            <li>
-                              <a href="blog-details.html">blog-details </a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a href="about-us.html">about us</a></li>
-                        <li><a href="contact.html">Contacts</a></li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- mobile-menu-area end -->
+        
 
           <!-- breadcrumbs start -->
           <div class="breadcrumbs-area breadcrumb-bg ptb-100">
@@ -650,7 +591,7 @@
       new Vue({
         el: "#cart",
         data: {
-          url :'192.168.43.98',
+          url :'http://192.168.43.98',
           cartItem:{
             commodity:{
               id:0,
