@@ -27,12 +27,14 @@
         <link rel="stylesheet" type="text/css" href="assets/css/demo.css" />
         <link rel="stylesheet" type="text/css" href="assets/css/sj-nav.css" />
         <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
     <body>
 
 
 
-        <div class="canvas-wrapper">
+        <div class="canvas-wrapper" id="register">
 
                <!-- 个人中心 -->
                <div class="menu-wrap">
@@ -279,12 +281,14 @@
                                             <p>请输入您的详细信息</p>
                                         </div>
                                         <div class="login-form">
-                                            <form action="#">
-                                                <input name="user-name" placeholder="邮箱" type="email">
-                                                <input name="user-password" placeholder="密码" type="password">
-                                                <input name="user-email" placeholder="再次确认密码" type="password">
+                                            <form >
+                                                <input name="user-name" placeholder="邮箱" type="email" v-model="customer.email">
+                                                <input name="user-name" placeholder="姓名" type="name" v-model="customer.name" >
+                                                <input name="user-phone" placeholder="电话" type="phone" v-model="customer.phone" >
+                                                <input name="user-password" placeholder="密码" type="password" v-model="customer.password">
+                                                <input name="user-email" placeholder="再次确认密码" type="password" v-model="apassword" >
                                                 <div class="button-remember">
-                                                    <button class="login-btn" type="submit">注册</button>
+                                                    <button class="login-btn" type="button" @click="register()">注册</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -463,6 +467,67 @@
             </div>
             <!-- content-wrap end -->
         </div>
+
+        <script>
+            new Vue({
+                el:"#register",
+                data:{
+                    url :"192.168.43.98:8080",
+                    apassword:"",
+                    customer:{
+                        email:"",
+                        password:"",
+                        name:"",
+                        phone:"",
+
+                    }
+                },
+
+                methods: {
+                    register:function(){
+                        if(this.apassword==this.customer.password){
+                            console.log(11111111)
+                            axios.post(`http://${this.url}/api/customer/register`,this.customer)
+                        .then(res => {
+                            console.log(res)
+                            if(res.data){
+                                window.location.href='login.html';
+                                alert("注册成功！");
+                            }else{
+                                alert("用户名已存在！");
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err); 
+                        });
+
+                    }else{
+                        alert("密码不一致！");
+                    }
+                        
+                        
+                        
+                    }
+                   
+                    
+                },
+                
+
+
+            });
+
+        
+        
+        
+        
+        </script>
+
+
+
+
+
+
+
 
 		<!-- all js here -->
         <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>

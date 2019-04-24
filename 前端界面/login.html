@@ -28,6 +28,7 @@
         <link rel="stylesheet" type="text/css" href="assets/css/sj-nav.css" />
         <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
         <script src="https://unpkg.com/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
     <body>
 
@@ -281,16 +282,16 @@
                                             <p>请输入您的账户登录信息</p>
                                         </div>
                                         <div class="login-form">
-                                            <form action="#">
-                                                <input name="user-name" placeholder="邮箱" type="email" v-model="Client.email">
-                                                <input name="user-password" placeholder="密码" type="password" v-model="Client.password">
+                                            <form >
+                                                <input name="user-name" placeholder="邮箱" type="email" v-model="client.email">
+                                                <input name="user-password" placeholder="密码" type="password" v-model="client.password">
                                                 <div class="button-remember">
                                                     <div class="checkbox-remember">
                                                         <input id="checkbox" type="checkbox">
                                                         <label>记住密码</label>
                                                         <a href="#">忘记密码?</a>
                                                     </div>
-                                                    <button class="login-btn" type="submit"  @click="showDetails()">登录</button>
+                                                    <button class="login-btn" type="button"  @click="showDetails()">登录</button>
                                                 </div>
                                                 <div class="new-account">
                                                     <p>无账号? <a href="register.html">点击注册一个新的账号</a></p>
@@ -477,11 +478,17 @@
           new Vue({
               el:"#login",
               data:{
-                Client:{
+                  url :"http://192.168.43.98:8080",
+                client:{
                     id:1,
                     email:"",
-                    password:""
-                }
+                    password:"",
+                    phone:"",
+                    name:"",
+                    token:""
+                    
+                },
+               
                 
 
               },
@@ -489,32 +496,32 @@
               methods: {
 
                 showDetails:function(){
-                        this.$http.post("URL").then((response)=>{
-                            console.log(response);
-                            alert(response.data);
-                            },function(){
-                            alert('请求失败！');
-                         });
+                    const param = new URLSearchParams();
+                    param.append("email",this.client.email);
+                    param.append("password",this.client.password);
+                    axios.post(`${this.url}/api/customer/login`,param)
+                    .then(res => {
+                        
+                        console.log(res)
+                        this.client=res.data;
+                        window.location.href='index.html';
+                    })
+                    .catch(err => {
+                        console.error(err); 
+                        alert("账户或者密码错误！");
+                    })
+                        
+                         }
                  
                   
               },
                
-              log:function(){
-                        this.Client.email=Client.email;
-                        this.Client.password=Client.password;
-                        console.log(this.Client.email+this.Client.password);
-                        console.log(1111111111);
-
-                  },
-
-
-              mounted:function (){
-                    this.showDetails();
-                }
+             
+            
               }
               
 
-          });
+          );
         
         
         </script>
