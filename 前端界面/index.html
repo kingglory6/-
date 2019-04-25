@@ -354,27 +354,27 @@
                             </nav>
                             <!-- 分页结束 -->
                         </div>
-
-
-                    </div>
-                </div>
-
-
-                <!-- 交易统计 -->
-                <div class="counter-home2">
-                    <div class="container">
-                        <div class="counter2-all text-center">
-                            <img alt="" src="assets/img/banner/9.jpg">
-                            <div class="counter-content">
-                                <h2>本周交易</h2>
-                                <h4>限时特别折扣</h4>
-                                <div class="timer">
-                                    <div data-countdown="2019/12/20"></div>
+                        <!-- 限时活动 -->
+                        <div class="row portfolio-style-2">
+                            <div class="grid">
+                                <div class="counter2-all text-center grid-item mix1 mix3 mb-30">
+                                    <img alt="" src="assets/img/banner/9.jpg">
+                                    <div class="counter-content">
+                                        <h2>本周交易</h2>
+                                        <h4>限时特别折扣</h4>
+                                        <div class="timer">
+                                            <div data-countdown="2019/4/26"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
+
+
+
 
 
 
@@ -744,7 +744,9 @@
                 url: "http://192.168.43.98:8080",
                 url1: "http://192.168.43.98:8080/api/commodity/recommed/1",
                 customer: {
-                    name: ""
+                    id: 0,
+                    name: "",
+                    token: '',
                 },
                 commodity: {//商品
                     id: 1,
@@ -885,17 +887,11 @@
 
 
                     //获取商品
-                    axios.get(`${this.url}/api/commodity/allcomm/${this.pageNum}`).then(Response => {
-                        this.commodityList = Response.data.list;
-                        this.pages = Response.data.pages;
-                        console.log(this.pages);
-                        console.log(this.commodityList);
-                    });
+                    this.getpagecommodity();
 
                     // 获取商品类别列表`http://192.168.43.98:8080/api/commodity/category`
                     axios.get(`${this.url}/api/commodity/category`).then(Response => {
                         this.categoryList = Response.data;
-                        console.log('类别列表');
                         console.log(this.categoryList);
                     });
 
@@ -919,30 +915,32 @@
                 },
 
                 //查询某一页的商品
-                quickpage: function (i) {
-                    axios.get(`${this.url}/api/commodity/${i}`).then(Response => {
+                getpagecommodity: function () {
+                    console.log(this.pageNum);
+                    axios.get(`${this.url}/api/commodity/allcomm/${this.pageNum}`).then(Response => {
                         this.commodityList = Response.data.list;
+                        this.pages = Response.data.pages;
+                        console.log(this.commodityList);
                     });
                 },
 
                 //换一页
                 selectPage: function (i) {
                     this.pageNum = i + 1;
-                    quickpage(this.pageNum);
+                    this.getpagecommodity();
                 },
 
                 //加减页数
                 changePage: function (n) {
-                    if (n >= this.pages)
-                        this.pageNum += n;
-                    if (this.pageNum <= 0) {
-                        this.pageNum = 1;
-                    };
-                    if (this.pageNum >= this.pages) {
+                    if (n >= this.pages) {
                         this.pageNum = this.pages;
-                    };
+                    } else if (n <= 1) {
+                        this.pageNum = 1;
+                    } else {
+                        this.pageNum += n;
+                        this.getpagecommodity();
+                    }
                     console.log(this.pageNum);
-                    quickpage(this.pageNum);
                 },
 
                 // 添加购物车
@@ -961,11 +959,22 @@
 
                 // 收藏
                 wishlist: function (c) {
-                    const param = new URLSearchParams();
                     this.Collection.commodity.id = c.id;
                     this.Collection.price = c.price;
-                    param.append('Colleciton', this.Collection);
-                    axios.post(`${this.url}/api/customer/collection`, param).then(Response => { })
+                    // const params = new URLSearchParams();
+                    // params.append('uid', this.customer.id);
+                    // params.append("collection", this.Collection)
+                    console.log(this.customer.id);
+
+                    axios.post(`${this.url}/api/customer/collection/${this.customer.id}`,
+                        { collection: this.Collection },
+                        {
+                            headers: {
+
+                                'Authorization': `Bearer${this.customer.token}`
+                            }
+                        }
+                    ).then(Response => { })
                     console.log('收藏');
                 }
             },
