@@ -139,7 +139,7 @@
                                                     <li class="mega-position"><a href="shop-page.html">全部 </a>
                                                         <div class="mega-menu mega-3-colm">
                                                             <ul>
-                                                                <li v-for="item in catagoryList"><a href="shop-page.html">{{item}}</a></li>
+                                                                <li v-for="item in catagoryList"><a href="shop-page.html">{{item.name}}</a></li>
                                                             </ul>
                                                         </div>
                                                     </li>
@@ -802,7 +802,7 @@
         el:'.canvas-wrapper',
         data:{
             url:"http://192.168.43.98:8080",
-
+            url1:"http://192.168.43.98:8080/api/commodity/recommed/1",
             customer:{
               name:""
 
@@ -828,7 +828,7 @@
                 param:'大大大',
                 img:'assets/img/slider/1.jpg'
             },
-            recommedCommodity:[],
+            recommedCommodity:{},
             commodity1:{
                 id:2,
                 title:'来南昌',
@@ -975,7 +975,7 @@
                 img:'assets/img/shop/electronics/6.jpg'
             },
             commodityView:{},//快速查看
-            pageNew:2,
+            pageNew:1,
             pages:5,
             classPageA:'page-item active',
             classPageB:'page-item',
@@ -984,19 +984,25 @@
             classMixB:'col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix3 mb-30',
             classMixA:'col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix2 mb-30',
             catagoryList:[],
+            catagory:{
+                id:0,
+                name:''
+            },
             brandList:[],
+            brand:{
+                id:0,
+                name:''
+            },
             link:'</li></ul><ul><li>',
         },
         methods: {
             init:function(){
-                this.customer=JSON.parse(sessionStorage.getItem("customer"))
+                this.customer=JSON.parse(sessionStorage.getItem("customer"));
                 console.log(this.customer.name);
-                this.recommedCommodity.push(this.commodity);
-                this.recommedCommodity[0].specList.push(this.spec);
-                this.recommedCommodity.push(this.commodity1);
-                this.recommedCommodity[1].specList.push(this.spec1);
-                this.recommedCommodity.push(this.commodity2);
-                this.recommedCommodity[2].specList.push(this.spec2);
+                // 获取推荐商品
+                axios.get(`${this.url1}`).then(Response=>{
+                    this.recommedCommodity=Response.data;
+                });
                 console.log(this.recommedCommodity);
 
                 //获取商品
@@ -1031,16 +1037,14 @@
                 console.log(this.commodityList);
 
                 // 获取商品类别列表
-                // axios.get('').then(Response=>{
+                // axios.get(`${this.url}/api/commodity/category`).then(Response=>{
                 // this.catagoryList=Response.data;
                 // });
-                this.catagoryList=['水果','健身器材','数码产品','日用品','书','宠物','衣服','鞋子']
 
                 // 获取商品品牌列表
                 // axios.get('').then(Response=>{
                 //     this.brandList=Response.data;
                 // });
-                this.brandList=['怡宝','思科','华为','阿迪达斯'];
             },
             quickView:function(q){
                 this.commodityView=q;
