@@ -210,7 +210,7 @@
                                                 <span class="sale-new">足迹</span>
                                             </div>
                                             <div class="button-group">
-                                                <a href="#" title="Add to Cart">
+                                                <a href="javascript:void(0)" @Click="addCart(index)" title="Add to Cart">
                                                     <i class="pe-7s-cart"></i>
                                                     加入购物车
                                                 </a>
@@ -546,6 +546,7 @@
                 history: {}
             },
             methods: {
+                // 页面初始化
                 init: function () {
                     this.customer = JSON.parse(sessionStorage.getItem("customer"))
                     axios.get(`${this.url}/api/customer/showfoot`, {
@@ -565,6 +566,29 @@
                         })
                         .catch((error) => {
                         })
+                },
+
+                // 添加购物车
+                addCart:function(index){
+                    const params=new URLSearchParams();
+                    params.append("uid",this.customer.id);
+                    params.append("commodityid",this.history[index].commodity.id);
+                    params.append("quantity",1);
+                    params.append("param",this.history[index].commodity.specList[0].param);
+                    axios.post(`${this.url}/api/cart/addcart`,
+                        params
+                        , 
+                        {
+                            headers:{
+                                'Authorization': `Bearer${this.customer.token}`
+                                }
+                        })
+                    .then(res => {
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        console.error(err); 
+                    })
                 }
             },
             mounted() {
