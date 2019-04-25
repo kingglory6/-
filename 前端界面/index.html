@@ -745,7 +745,7 @@
                 url1: "http://192.168.43.98:8080/api/commodity/recommed/1",
                 customer: {
                     id: 0,
-                    name: "",
+                    name: '未登录',
                     token: '',
                 },
                 commodity: {//商品
@@ -851,7 +851,9 @@
                 }],
 
                 Collection: {//收藏
-                    commodity: {},
+                    commodity: {
+                        id: ''
+                    },
                     price: '',
                 },
 
@@ -875,8 +877,9 @@
 
             methods: {
                 init: function () {
-                    // 获取客户名字
-                    this.customer = JSON.parse(sessionStorage.getItem("customer"));
+                    // 获取客户
+                    if (JSON.parse(sessionStorage.getItem("customer")) != null)
+                        this.customer = JSON.parse(sessionStorage.getItem("customer"));
                     console.log(this.customer.name);
                     // 获取推荐商品
                     axios.get(`${this.url}/api/commodity/recommed/${1}`).then(Response => {
