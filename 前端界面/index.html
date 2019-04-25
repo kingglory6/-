@@ -948,12 +948,13 @@
 
                 // 添加购物车
                 addCart: function (c, q, p) {
-                    // const param = new URLSearchParams();
-                    // param.append('commodityid', c);
-                    // param.append('quantity', q);
-                    // param.append('param', p);
-                    // axios.post(`${this.url}/api/cart/addcart`, param).then(Response => { })
-                    // console.log('添加购物车')
+                    const param = new URLSearchParams();
+                    param.append('commodityid', c);
+                    param.append('quantity', q);
+                    param.append('param', p);
+                    param.append('uid', this.customer.id);
+                    axios.post(`${this.url}/api/cart/addcart`, param, { headers: { 'Authorization': `Bearer${this.customer.token}` } }).then(Response => { })
+                    console.log('添加购物车')
                     console.log(q);
                     console.log(p);
                     this.addcommodityQ = 1;
@@ -970,12 +971,11 @@
                     console.log(this.customer.id);
 
                     axios.post(`${this.url}/api/customer/collection/${this.customer.id}`,
-                        { collection: this.Collection },
                         {
-                            headers: {
-
-                                'Authorization': `Bearer${this.customer.token}`
-                            }
+                            // id: this.customer.id,
+                            collection: [this.Collection]
+                        }, {
+                            headers: { 'Authorization': `Bearer${this.customer.token}` }
                         }
                     ).then(Response => { })
                     console.log('收藏');
