@@ -41,11 +41,11 @@
                         <button type="button" class="btn btn-default">人民币</button>
                         <button type="button" class="btn btn-default">美元</button>
                     </div>
-                    <h5 class="mt-2">我的账户:某某人</h5>
+                    <h5 class="mt-2" >我的账户:{{customer.name}}</h5>
                     <a href=""><i class="pe-7s-next-2"></i><span>我的信息</span></a>
                     <a href="cart.html"><i class="pe-7s-cart"></i><span>我的购物车</span></a>
-                    <a href="wishlist.html"><i class="pe-7s-like"></i><span>我的订单</span></a>
-                    <a href=""><i class="pe-7s-like"></i><span>我的收藏</span></a>
+                    <a href="order.html"><i class="pe-7s-like"></i><span>我的订单</span></a>
+                    <a href="footprint.html"><i class="pe-7s-like"></i><span>我的收藏</span></a>
                     <a href="checkout.html"><i class="pe-7s-check"></i><span>结算</span></a>
                     <a href=""><i class="pe-7s-check"></i><span>我的收货地址</span></a>    
                     <a href=""><i class="pe-7s-add-user"></i><span>退出</span></a>
@@ -133,107 +133,19 @@
                                                     <li><a href="index.html">主页</a>
                                                        
                                                     </li>
-                                                    <li class="mega-position"><a href="shop-page.html">商品 </a>
-                                                        <div class="mega-menu mega-4-colm">
-                                                            <ul>
-                                                                <li class="menu-title uppercase">衣物</li>
-                                                                <li><a href="shop-page.html">连衣裙</a></li>
-                                                                <li><a href="shop-page.html">最上等的</a></li>
-                                                                <li><a href="shop-page.html">裙子</a></li>
-                                                                <li><a href="shop-page.html">开衫</a></li>
-                                                                <li><a href="shop-page.html">外衣</a></li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li class="menu-title uppercase">珠宝</li>
-                                                                <li><a href="shop-page.html">戒指</a></li>
-                                                                <li><a href="shop-page.html">盒子</a></li>
-                                                                <li><a href="shop-page.html">头冠</a></li>
-                                                                <li><a href="shop-page.html">腕带</a></li>
-                                                                <li><a href="shop-page.html">手镯</a></li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li class="menu-title uppercase">鞋</li>
-                                                                <li><a href="shop-page.html">平板</a></li>
-                                                                <li><a href="shop-page.html">靴子</a></li>
-                                                                <li><a href="shop-page.html">运动鞋</a></li>
-                                                                <li><a href="shop-page.html">拖鞋</a></li>
-                                                                <li><a href="shop-page.html">长筒鞋</a></li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li class="menu-img">
-                                                                    <a href="shop-page.html"><img src="assets/img/shop/1.jpg" alt=""></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                    <li class="mega-position"><a href="shop-page.html">类型 </a>
+                                                    
+                                                    <li class="mega-position"><a href="shop-page.html">全部 </a>
                                                         <div class="mega-menu mega-3-colm">
                                                             <ul>
-                                                                <li class="menu-title uppercase">衣物</li>
-                                                                <li><a href="shop-page.html">外套</a></li>
-                                                                <li><a href="shop-page.html">衬衫 </a></li>
-                                                                <li><a href="shop-page.html">领带</a></li>
-                                                                <li><a href="shop-page.html">大衣</a></li>
-                                                                <li><a href="#"> 夹克</a></li>
-                                                                <li><a href="shop-page.html">T-血衫</a></li>
-                                                                <li><a href="shop-page.html">裤子</a></li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li class="menu-title uppercase">鞋</li>
-                                                                <li><a href="shop-page.html">平板</a></li>
-                                                                <li><a href="shop-page.html">靴子</a></li>
-                                                                <li><a href="shop-page.html">运动鞋</a></li>
-                                                                <li><a href="shop-page.html">拖鞋</a></li>
-                                                                <li><a href="shop-page.html">长筒鞋</a></li>
-                                                                <li><a href="shop-page.html">休闲鞋</a></li>
-                                                                <li><a href="shop-page.html">短袜</a></li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li class="menu-img">
-                                                                    <a href="shop-page.html"><img src="assets/img/shop/1.jpg" alt=""></a>
-                                                                </li>
+                                                                <li v-for="item in catagoryList"><a href="shop-page.html">{{item}}</a></li>
                                                             </ul>
                                                         </div>
                                                     </li>
-                                                    <li><a href="shop-page.html">品牌</a>
-                                                        <div class="mega-menu mega-2-colm">
-                                                            <ul>
-                                                                <li class="menu-title uppercase">珠宝</li>
-                                                                <li><a href="shop-page.html">戒指</a></li>
-                                                                <li><a href="shop-page.html">盒子</a></li>
-                                                                <li><a href="shop-page.html">头冠</a></li>
-                                                                <li><a href="shop-page.html">腕带</a></li>
-                                                                <li><a href="shop-page.html">手镯</a></li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li class="menu-title uppercase">鞋</li>
-                                                                <li><a href="shop-page.html">平板</a></li>
-                                                                <li><a href="shop-page.html">靴子</a></li>
-                                                                <li><a href="shop-page.html">运动鞋</a></li>
-                                                                <li><a href="shop-page.html">拖鞋</a></li>
-                                                                <li><a href="shop-page.html">长筒鞋</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                    <li><a href="#">足迹</a>
-                                                        <ul class="dropdown">
-                                                            <li><a href="about-us.html">关于我们 </a></li>
-                                                            <li><a href="cart.html">购物车</a></li>
-                                                            <li><a href="checkout.html">结账</a></li>
-                                                            <li><a href="wishlist.html">订单</a></li>
-                                                            <li><a href="login.html">登录</a></li>
-                                                            <li><a href="register.html">注册</a></li>
-                                                            <li><a href="contact.html">联系</a></li>
-                                                            <li><a href="shop-page.html">商铺页面</a></li>
-                                                            <li><a href="shop-list.html">商铺名单</a></li>
-                                                            <li><a href="single-product.html">单一产品</a></li>
-                                                            <li><a href="404.html">404 错误</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a href="blog-page.html">收藏</a>
-                                                        <ul class="dropdown">
-                                                            
-                                                        </ul>
+                                                   
+                                                    <li><a href="footprint.html">足迹</a>
+                                                        </li>
+                                                    <li><a href="footprint.html">收藏</a>
+                                                        
                                                     </li>
                                                     <li><a href="login.html">登录</a></li>
                                                 </ul>
@@ -245,7 +157,6 @@
                         </div>
                     </div>
                 </header>
-                    <!-- header end -->
                    
                  
                     
