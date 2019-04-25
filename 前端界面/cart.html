@@ -197,7 +197,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="p in cart">
+                        <tr v-for="(p,index) in cart">
                           <td class="product-thumbnail">
                             <a :href="`#${p.spec.param}`"><img v-bind:src='p.spec.img' :alt="`#${p.spec.param}`" /></a>
                           </td>
@@ -212,7 +212,7 @@
                           </td>
                           <td class="product-subtotal">${{p.commodity.price*p.quantity}}</td>
                           <td class="product-remove">
-                            <i class="fa fa-times" @click="del(p.commodity.id,p.spec.id)"></i>
+                            <i class="fa fa-times" @click="del(index)"></i>
                           </td>
                         </tr>
                       </tbody>
@@ -224,11 +224,11 @@
               </div>
             </div>
 
-            <!-- 分页 -->
-            <nav aria-label="Page navigation">
+            
+            <!-- <nav aria-label="Page navigation">
               <ul class="pagination">
                 <li :class="(pagenum===1)?classPageC:classPageB">
-                  <!-- disabled 不允许点击-->
+                   disabled 不允许点击
                   <a class="page-link" @click="changePage(-1)" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
@@ -243,8 +243,8 @@
                   </a>
                 </li>
               </ul>
-            </nav>
-            <!-- 分页结束 -->
+            </nav> -->
+           
 
             <!-- 运费税收，折扣 -->
             <div class="row tax-coupon-div">
@@ -259,7 +259,7 @@
                     <li class="cart-black">合计<span>${{money}}</span></li>
                   </ul>
                   <div class="cart-total-btn">
-                    <div class="cart-total-btn2 f-right" v-if="isChange" @click="changeQuantity"><a>保存购物车</a>
+                    <div class="cart-total-btn2 f-right" v-if="isChange" @click="changeQuantity()"><a>保存购物车</a>
                     </div>
                     <div class="cart-total-btn1 f-right" v-else>
                       <a href="checkout.html">结帐</a>
@@ -464,87 +464,34 @@
     new Vue({
       el: "#cart",
       data: {
+        spec:'',
         url: 'http://192.168.43.98:8080',
         customer: {
           id: "",
           name: "",
           token: "",
-          categoryList:["电子","家具","衣物"]
+          
         },
-<<<<<<< HEAD
+        categoryList:["电子","家具","衣物"],
         cartItem: {
           commodity: {
-            id: 0,
-            title: '耳机',
-            description: '喝的',
-            price: 105.0,
-            shelf: 0,
-            reconmmed: 0,
-            stock: 0,
-            category: '电子',
-            brand: '东腾特饮',
+            id: 1,
+            title: '',
+            description: '',
+            price:'',
+            shelf:'',
+            reconmmed:'',
+            stock:'',
+            category: '',
+            brand: '',
             // specList:[] //商品规格列表
           },
           spec: {
             id: '',
             param: '',
             img: ''
-=======
-        methods: {
-          // 初始化,获取购物车列表
-          init:function(){
-            this.customer=JSON.parse(sessionStorage.getItem("customer"));
-            console.log(this.customer.id)
-            axios.get(`${this.url}`/api/v1/cart/check/`${this.customer.id}`).then(Response=>{this.cart=Response.data;});
-            console.log(this.cart);
-            for(var n=0;n<this.cart.length;n++){
-              this.money=this.money+(this.cart[n].quantity*this.cart[n].commodity.price);
-            }
           },
-
-          //查询某一页的商品
-          quickpage:function(i){
-                axios.get(`${this.url}/api/commodity/${i}`).then(Response=>{
-                    this.commodityList=Response.data.list;
-                });
-            },
-
-            //换一页
-            selectPage:function(i){
-                this.pageNew=i+1;
-                quickpage(this.pageNew);
-            },
-            
-            //加减页数
-            changePage:function(n){
-                this.pageNew+=n;
-                if(this.pageNew<=0){
-                    this.pageNew=1;
-                };
-                if(this.pageNew>=this.pages){
-                    this.pageNew=this.pages;
-                };
-                console.log(this.pageNew);
-                quickpage(this.pageNew);
-            },
-
-          // 删除订单项
-          del:function(cid,sid){
-            console.log('删除商品:'+cid);
-            console.log('规格id:'+sid);
-            const param = new URLSearchParams();
-            param.append("cid",cid);
-            param.append("sid",sid);
-            axios.post(`${this.url}`/api/v1/cart/dlt,param).then((Response)=>{});
-            this.init();
-          },
-
-          // 是否修改
-          change:function(){
-            this.isChange=true;
->>>>>>> 2a81af3fd4eb2c954d4a37042dc61396b96be316
-          },
-          quantity: 0,
+          quantity:'',
         },
         cart: [],
         money: 0,
@@ -559,9 +506,6 @@
         // 初始化,获取购物车列表
         init: function () {
           this.customer = JSON.parse(sessionStorage.getItem("customer"));
-          console.log(this.customer.id)
-          console.log(this.customer.token)
-
           axios.get(`${this.url}/api/v1/cart/check/${this.pagenum}`, 
           { 
             params:{
@@ -571,12 +515,25 @@
               "content-Type":"application/json",
               'Authorization':`Bearer${this.customer.token}` } 
             })
-          .then(Response => { this.cart = Response.data.list; });
-          console.log(222)
-          console.log(this.cart);
-          for (var n = 0; n < this.cart.length; n++) {
-            this.money = this.money + (this.cart[n].quantity * this.cart[n].commodity.price);
+          .then(Response => { 
+            this.cart = Response.data.list; 
+           
+            
+            console.log(Response.data.list); 
+            console.log(123);
+            console.log(this.cart); 
+            console.log(this.cart[0].commodity.price)
+            for (var n = 0; n < this.cart.length; n++) {
+            this.money = this.money + (this.cart[n].commodity.price*this.cart[n].quantity);
           }
+            
+            });
+         
+         
+          console.log('数据获取成功');
+          
+
+          
         },
         // 选择页码
         selectPage: function (i) {
@@ -597,32 +554,45 @@
           console.log(this.pagenum);
         },
         // 删除订单项
-        del: function (cid, sid) {
-          console.log('删除商品:' + cid);
-          console.log('规格id:' + sid);
+        del: function (index) {
+          console.log('删除商品');
+          console.log(index)
           const param = new URLSearchParams();
-          param.append("cid", cid);
-          param.append("sid", sid);
-          axios.post(`${this.url}` / api / v1 / cart / dlt, param).then((Response) => { });
-          this.init();
+          param.append("sid", this.cart[index].spec.id);
+          param.append("cid", this.cart[index].commodity.id);
+          param.append("uid", this.customer.id);
+          console.log(this.cart[index].spec.id,this.cart[index].commodity.id,this.customer.id)
+          axios.post(`${this.url}/api/v1/cart/dlt`, param,
+          {
+            headers:{
+              'Authorization':`Bearer${this.customer.token}`
+            }
+          }).then((Response) => {
+            this.init();
+           });
         },
 
         // 是否修改
         change: function () {
           this.isChange = true;
+          this.money=0;
         },
 
         // 修改购物车数量
         changeQuantity: function () {
           for (var n = 0; n < this.cart.length; n++) {
             console.log(this.cart[n].quantity);
+            
             this.money = this.money + (this.cart[n].quantity * this.cart[n].commodity.price);
-            const param = new URLSearchParams();
-            param.append("sid", this.cart[n].spec.id);
-            param.append("cid", this.cart[n].commodity.id);
-            param.append("quantity", this.cart[n].quantity);
-            axios.post(`${this.url}` / api / v1 / cart / change, param).then(Response => { });
+            console.log(1111)
+            // const param = new URLSearchParams();
+            // param.append("sid", this.cart[n].spec.id);
+            // param.append("cid", this.cart[n].commodity.id);
+            // param.append("quantity", this.cart[n].quantity);
+            // axios.post(`${this.url}` / api / v1 / cart / change, param).then(Response => { });
+           
           };
+          console.log(1111)
           this.isChange = false;
         }
       },
@@ -634,6 +604,7 @@
 
       mounted() {
         this.init();
+        
       },
     })
   </script>
