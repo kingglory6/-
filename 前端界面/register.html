@@ -67,189 +67,101 @@
                 <div class="content">
 
                       <!-- 导航 -->
-                      <header class="header-area home-style-2">
-                        <div class="header-bottom">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-3 col-xs-6">
-                                        <div class="logo">
-                                            <a href="index.html">
-                                                <img src="assets/img/logo/logo-black.png" alt="">
+                <header class="header-area home-style-2">
+                    <div class="header-bottom">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-3 col-xs-6">
+                                    <div class="logo">
+                                        <a href="index.html">
+                                            <img src="assets/img/logo/logo-black.png" alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-sm-9 col-xs-6">
+                                    <div class="cart-menu">
+                                        <div class="user user-style-3 f-right">
+                                            <a href="#" id="open-button">
+                                                <i class="pe-7s-menu"></i>
                                             </a>
                                         </div>
-                                    </div>
-                                    <div class="col-md-8 col-sm-9 col-xs-6">
-                                        <div class="cart-menu">
-                                            <div class="user user-style-3 f-right">
-                                                <a href="#" id="open-button">
-                                                    <i class="pe-7s-menu"></i>
-                                                </a>
+                                        <div class="search-style-2 f-right">
+                                            <a class="icon-search-2" href="#">
+                                                <i class="pe-7s-search"></i>
+                                            </a>
+                                            <div class="search2-content">
+                                                <form action="#">
+                                                    <div class="search-input-button2">
+                                                        <input class="" placeholder="Search" type="search">
+                                                        <button class="search-button2" type="submit">
+                                                            <i class="pe-7s-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </form>
                                             </div>
-                                            <div class="search-style-2 f-right">
-                                                <a class="icon-search-2" href="#">
-                                                    <i class="pe-7s-search"></i>
-                                                </a>
-                                                <div class="search2-content">
-                                                    <form action="#">
-                                                        <div class="search-input-button2">
-                                                            <input class="" placeholder="Search" type="search">
-                                                            <button class="search-button2" type="submit">
-                                                                <i class="pe-7s-search"></i>
-                                                            </button>
+                                        </div>
+                                        <div class="shopping-cart f-right">
+                                            <a class="top-cart" href="cart.html"><i class="pe-7s-cart"></i></a>
+                                            <span>01</span>
+                                            <ul>
+                                                <li>
+                                                    <div class="cart-img-price">
+                                                        <div class="cart-img">
+                                                            <a href="#"><img src="assets/img/cart/1.jpg" alt="" /></a>
                                                         </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <div class="shopping-cart f-right">
-                                                <a class="top-cart" href="cart.html"><i class="pe-7s-cart"></i></a>
-                                                <span>01</span>
+                                                        <div class="cart-content">
+                                                            <h3><a href="#">头戴式耳机</a> </h3>
+                                                            <span class="cart-price">1 x $ 299.00</span>
+                                                        </div>
+                                                        <div class="cart-del">
+                                                            <i class="pe-7s-close-circle"></i>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <p class="total">
+                                                        小计:
+                                                        <span>$299.00</span>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p class="buttons">
+                                                        <a class="my-cart" href="cart.html">查看购物车</a>
+                                                        <a class="checkout" href="checkout.html">结账</a>
+                                                    </p>
+                                                </li>
+                                            </ul>							
+                                        </div>
+                                        <div class="main-menu f-right">
+                                            <nav>
                                                 <ul>
-                                                    <li>
-                                                        <div class="cart-img-price">
-                                                            <div class="cart-img">
-                                                                <a href="#"><img src="assets/img/cart/1.jpg" alt="" /></a>
-                                                            </div>
-                                                            <div class="cart-content">
-                                                                <h3><a href="#">头戴式耳机</a> </h3>
-                                                                <span class="cart-price">1 x $ 299.00</span>
-                                                            </div>
-                                                            <div class="cart-del">
-                                                                <i class="pe-7s-close-circle"></i>
-                                                            </div>
+                                                    <li><a href="index.html">主页</a>
+                                                       
+                                                    </li>
+                                                    
+                                                    <li class="mega-position"><a href="shop-page.html">全部 </a>
+                                                        <div class="mega-menu mega-3-colm">
+                                                            <ul>
+                                                                <li v-for="item in catagoryList"><a href="shop-page.html">{{item}}</a></li>
+                                                            </ul>
                                                         </div>
                                                     </li>
-                                                    <li>
-                                                        <p class="total">
-                                                            小计:
-                                                            <span>$299.00</span>
-                                                        </p>
+                                                   
+                                                    <li><a href="footprint.html">足迹</a>
+                                                        </li>
+                                                    <li><a href="footprint.html">收藏</a>
+                                                        
                                                     </li>
-                                                    <li>
-                                                        <p class="buttons">
-                                                            <a class="my-cart" href="cart.html">查看购物车</a>
-                                                            <a class="checkout" href="checkout.html">结账</a>
-                                                        </p>
-                                                    </li>
-                                                </ul>							
-                                            </div>
-                                            <div class="main-menu f-right">
-                                                <nav>
-                                                    <ul>
-                                                        <li><a href="index.html">主页</a>
-                                                           
-                                                        </li>
-                                                        <li class="mega-position"><a href="shop-page.html">商品 </a>
-                                                            <div class="mega-menu mega-4-colm">
-                                                                <ul>
-                                                                    <li class="menu-title uppercase">衣物</li>
-                                                                    <li><a href="shop-page.html">连衣裙</a></li>
-                                                                    <li><a href="shop-page.html">最上等的</a></li>
-                                                                    <li><a href="shop-page.html">裙子</a></li>
-                                                                    <li><a href="shop-page.html">开衫</a></li>
-                                                                    <li><a href="shop-page.html">外衣</a></li>
-                                                                </ul>
-                                                                <ul>
-                                                                    <li class="menu-title uppercase">珠宝</li>
-                                                                    <li><a href="shop-page.html">戒指</a></li>
-                                                                    <li><a href="shop-page.html">盒子</a></li>
-                                                                    <li><a href="shop-page.html">头冠</a></li>
-                                                                    <li><a href="shop-page.html">腕带</a></li>
-                                                                    <li><a href="shop-page.html">手镯</a></li>
-                                                                </ul>
-                                                                <ul>
-                                                                    <li class="menu-title uppercase">鞋</li>
-                                                                    <li><a href="shop-page.html">平板</a></li>
-                                                                    <li><a href="shop-page.html">靴子</a></li>
-                                                                    <li><a href="shop-page.html">运动鞋</a></li>
-                                                                    <li><a href="shop-page.html">拖鞋</a></li>
-                                                                    <li><a href="shop-page.html">长筒鞋</a></li>
-                                                                </ul>
-                                                                <ul>
-                                                                    <li class="menu-img">
-                                                                        <a href="shop-page.html"><img src="assets/img/shop/1.jpg" alt=""></a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </li>
-                                                        <li class="mega-position"><a href="shop-page.html">类型 </a>
-                                                            <div class="mega-menu mega-3-colm">
-                                                                <ul>
-                                                                    <li class="menu-title uppercase">衣物</li>
-                                                                    <li><a href="shop-page.html">外套</a></li>
-                                                                    <li><a href="shop-page.html">衬衫 </a></li>
-                                                                    <li><a href="shop-page.html">领带</a></li>
-                                                                    <li><a href="shop-page.html">大衣</a></li>
-                                                                    <li><a href="#"> 夹克</a></li>
-                                                                    <li><a href="shop-page.html">T-血衫</a></li>
-                                                                    <li><a href="shop-page.html">裤子</a></li>
-                                                                </ul>
-                                                                <ul>
-                                                                    <li class="menu-title uppercase">鞋</li>
-                                                                    <li><a href="shop-page.html">平板</a></li>
-                                                                    <li><a href="shop-page.html">靴子</a></li>
-                                                                    <li><a href="shop-page.html">运动鞋</a></li>
-                                                                    <li><a href="shop-page.html">拖鞋</a></li>
-                                                                    <li><a href="shop-page.html">长筒鞋</a></li>
-                                                                    <li><a href="shop-page.html">休闲鞋</a></li>
-                                                                    <li><a href="shop-page.html">短袜</a></li>
-                                                                </ul>
-                                                                <ul>
-                                                                    <li class="menu-img">
-                                                                        <a href="shop-page.html"><img src="assets/img/shop/1.jpg" alt=""></a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </li>
-                                                        <li><a href="shop-page.html">品牌</a>
-                                                            <div class="mega-menu mega-2-colm">
-                                                                <ul>
-                                                                    <li class="menu-title uppercase">珠宝</li>
-                                                                    <li><a href="shop-page.html">戒指</a></li>
-                                                                    <li><a href="shop-page.html">盒子</a></li>
-                                                                    <li><a href="shop-page.html">头冠</a></li>
-                                                                    <li><a href="shop-page.html">腕带</a></li>
-                                                                    <li><a href="shop-page.html">手镯</a></li>
-                                                                </ul>
-                                                                <ul>
-                                                                    <li class="menu-title uppercase">鞋</li>
-                                                                    <li><a href="shop-page.html">平板</a></li>
-                                                                    <li><a href="shop-page.html">靴子</a></li>
-                                                                    <li><a href="shop-page.html">运动鞋</a></li>
-                                                                    <li><a href="shop-page.html">拖鞋</a></li>
-                                                                    <li><a href="shop-page.html">长筒鞋</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </li>
-                                                        <li><a href="#">足迹</a>
-                                                            <ul class="dropdown">
-                                                                <li><a href="about-us.html">关于我们 </a></li>
-                                                                <li><a href="cart.html">购物车</a></li>
-                                                                <li><a href="checkout.html">结账</a></li>
-                                                                <li><a href="wishlist.html">订单</a></li>
-                                                                <li><a href="login.html">登录</a></li>
-                                                                <li><a href="register.html">注册</a></li>
-                                                                <li><a href="contact.html">联系</a></li>
-                                                                <li><a href="shop-page.html">商铺页面</a></li>
-                                                                <li><a href="shop-list.html">商铺名单</a></li>
-                                                                <li><a href="single-product.html">单一产品</a></li>
-                                                                <li><a href="404.html">404 错误</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li><a href="blog-page.html">收藏</a>
-                                                            <ul class="dropdown">
-                                                                
-                                                            </ul>
-                                                        </li>
-                                                        <li><a href="contact.html">登录</a></li>
-                                                    </ul>
-                                                </nav>
-                                            </div>
+                                                    <li><a href="login.html">登录</a></li>
+                                                </ul>
+                                            </nav>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </header>
+                    </div>
+                </header>
 
 
 
