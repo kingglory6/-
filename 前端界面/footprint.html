@@ -35,7 +35,7 @@
 
 
 
-    <div class="canvas-wrapper">
+    <div class="canvas-wrapper" id="foot">
         <!-- 个人中心 -->
         <div class="menu-wrap">
             <nav class="menu">
@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <div class="content-wrap" id="foot">
+        <div class="content-wrap">
             <div class="content">
                 <!-- 导航 -->
                 <header class="header-area home-style-2">
@@ -194,10 +194,12 @@
                     <div class="tab-pane active" id="dresses">
                         <div class="row">
                             <div class="product-curosel product-curosel-style owl-carousel">
-                                <div class="col-md-3 col-sm-6 col-xs-12">
+
+                                <div class="col-md-3 col-sm-6 col-xs-12" v-for="(item, index) in history" :key="index">
                                     <div class="single-shop">
                                         <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/1.jpg" alt="" /></a>
+                                            <a href="#"><img :src="history[index].commodity.specList[0].img"
+                                                    alt="" /></a>
                                             <div class="shop-quick-view">
                                                 <a href="#" data-toggle="modal" data-target="#quick-view"
                                                     title="Quick View">
@@ -205,229 +207,35 @@
                                                 </a>
                                             </div>
                                             <div class="price-up-down">
-                                                <span class="sale-new">sale</span>
+                                                <span class="sale-new">足迹</span>
                                             </div>
                                             <div class="button-group">
-                                                <a href="#" title="Add to Cart">
+                                                <a href="javascript:void(0)" @Click="addCart(index)" title="Add to Cart">
                                                     <i class="pe-7s-cart"></i>
-                                                    add to cart
+                                                    加入购物车
                                                 </a>
                                                 <a class="wishlist" href="#" title="Wishlist">
                                                     <i class="pe-7s-like"></i>
-                                                    Wishlist
+                                                    收藏
                                                 </a>
                                             </div>
                                         </div>
                                         <div class="shop-text-all">
                                             <div class="title-color fix">
                                                 <div class="shop-title f-left">
-                                                    <h3><a href="#">PC Headphone</a></h3>
+                                                    <h3><a href="#">{{history[index].commodity.title}}</a></h3>
                                                 </div>
                                                 <span class="price f-right">
-                                                    <span class="new">$120.00</span>
+                                                    <span class="new">￥{{history[index].commodity.price}}</span>
                                                 </span>
                                             </div>
                                             <div class="fix">
-                                                <span class="f-left">Fashion</span>
+                                                <span class="f-left">{{history[index].commodity.category.name}}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/8.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="price-up-down">
-                                                <span class="sale-new">sale</span>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                    add to cart
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    Wishlist
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">Table Lamp</a></h3>
-                                                </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="f-left">Fashion</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/7.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="price-up-down">
-                                                <span class="sale-new">sale</span>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                    add to cart
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    Wishlist
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">Micro woven</a></h3>
-                                                </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="f-left">Fashion</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/6.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="price-up-down">
-                                                <span class="sale-new">sale</span>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                    add to cart
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    Wishlist
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">Air conditionar</a></h3>
-                                                </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="f-left">Fashion</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/5.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="price-up-down">
-                                                <span class="sale-new">sale</span>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                    add to cart
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    Wishlist
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">Table Fan</a></h3>
-                                                </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="f-left">Fashion</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <div class="single-shop">
-                                        <div class="shop-img">
-                                            <a href="#"><img src="assets/img/shop/electronics/4.jpg" alt="" /></a>
-                                            <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View">
-                                                    <i class="pe-7s-look"></i>
-                                                </a>
-                                            </div>
-                                            <div class="price-up-down">
-                                                <span class="sale-new">sale</span>
-                                            </div>
-                                            <div class="button-group">
-                                                <a href="#" title="Add to Cart">
-                                                    <i class="pe-7s-cart"></i>
-                                                    add to cart
-                                                </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
-                                                    <i class="pe-7s-like"></i>
-                                                    Wishlist
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shop-text-all">
-                                            <div class="title-color fix">
-                                                <div class="shop-title f-left">
-                                                    <h3><a href="#">Water heater</a></h3>
-                                                </div>
-                                                <span class="price f-right">
-                                                    <span class="new">$120.00</span>
-                                                </span>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="f-left">Fashion</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -728,16 +536,59 @@
         new Vue({
             el: '#foot',
             data: {
+                url: "http://192.168.43.98:8080",
                 customer: {
                     id: "",
                     name: "",
                     token: ""
                 },
-                categoryList:[]
+                categoryList: [],
+                history: {}
             },
             methods: {
+                // 页面初始化
                 init: function () {
                     this.customer = JSON.parse(sessionStorage.getItem("customer"))
+                    axios.get(`${this.url}/api/customer/showfoot`, {
+                        params: {
+                            uid: this.customer.id
+                        },
+                        headers: {
+                            'Authorization': `Bearer${this.customer.token}`
+                        }
+                    })
+                        .then((res) => {
+                            this.history = res.data
+                            console.log(1);
+
+                            console.log(this.history);
+
+                        })
+                        .catch((error) => {
+                        })
+                },
+
+                // 添加购物车
+                addCart:function(index){
+                    const params=new URLSearchParams();
+                    params.append("uid",this.customer.id);
+                    params.append("commodityid",this.history[index].commodity.id);
+                    params.append("quantity",1);
+                    params.append("param",this.history[index].commodity.specList[0].param);
+                    axios.post(`${this.url}/api/cart/addcart`,
+                        params
+                        , 
+                        {
+                            headers:{
+                                'Authorization': `Bearer${this.customer.token}`
+                                }
+                        })
+                    .then(res => {
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        console.error(err); 
+                    })
                 }
             },
             mounted() {
