@@ -167,9 +167,9 @@
                 <!-- 轮播 -->
                 <section class="hero-slider-container">
                     <div class="hero-slider owl-carousel">
-                        <div v-for="item in recommedCommodity" class="hero-slider-item note" :style="{backgroundImage:'url('+item.specList[0].img+')'}">
-                            <div class="hero-slider-contents">
-                                <div class="container">
+                        <div  class="hero-slider-item note" >
+                                <div v-for="item in recommedCommodity" class="hero-slider-item note" :style="{backgroundImage:'url('+item.specList[0].img+')'}">
+                                <div  class="container">
                                     <h1 class="title1">{{item.title}}</h1>
                                     <p class="title2">新品推荐 2019</p>
                                     <a href="#" class="button-hover">现在购买</a>
@@ -256,13 +256,11 @@
                                                         <span class="sale-new1" v-if="item.recommed===1">荐</span>
                                                     </div>
                                                     <div class="button-group">
-                                                        <a @click="addCart(item)" title="Add to Cart">
+                                                        <a @click="addCart(item.id,1,item.specList[0].param)" title="添加到购物车">
                                                             <i class="pe-7s-cart"></i>
-                                                            添加到购物车
                                                         </a>
-                                                        <a class="wishlist" @click="wishlist(item)" title="Wishlist">
+                                                        <a class="wishlist" @click="wishlist(item)" title="收藏">
                                                             <i class="pe-7s-like"></i>
-                                                            收藏
                                                         </a>
                                                     </div>
                                                 </div>
@@ -276,8 +274,8 @@
                                                         </span>
                                                     </div>
                                                     <div class="fix">
-                                                        <span class="f-left">{{item.catagory}}</span>
-                                                        <span class="f-right">{{item.brand}}</span>
+                                                        <span class="f-left">{{item.catagory.name}}</span>
+                                                        <span class="f-right">{{item.brand.name}}</span>
                                                     </div>
                                                 </div>									
                                             </div>
@@ -290,38 +288,36 @@
                                                         <a @click=quickView(item) data-toggle="modal" data-target="#quick-view" title="快速查看">
                                                             <i class="pe-7s-look"></i>
                                                         </a>
-                                                    </div>
-                                                    <div class="price-up-down">
-                                                        <span class="sale-new" v-if="item.activity===1">折扣</span>
-                                                        <span class="sale-new" v-if="item.activity===2">秒杀</span>
-                                                        <span class="sale-new1" v-if="item.recommed===1">荐</span>
-                                                    </div>
-                                                    <div class="button-group">
-                                                        <a @click="addCart(item)" title="Add to Cart">
-                                                            <i class="pe-7s-cart"></i>
-                                                            添加到购物车
-                                                        </a>
-                                                        <!-- <a class="wishlist" href="#" title="Wishlist">
-                                                            <i class="pe-7s-like"></i>
-                                                            收藏
-                                                        </a> -->
-                                                    </div>
-                                                </div>
-                                                <div class="shop-text-all">
-                                                    <div class="title-color fix">
-                                                        <div class="shop-title f-left">
-                                                            <h3><a href="#">{{item.title}}</a></h3>
                                                         </div>
-                                                        <span class="price f-right">
-                                                            <span class="new">${{item.price}}</span>
-                                                        </span>
+                                                        <div class="price-up-down">
+                                                            <span class="sale-new" v-if="item.activity===1">折扣</span>
+                                                            <span class="sale-new" v-if="item.activity===2">秒杀</span>
+                                                            <span class="sale-new1" v-if="item.recommed===1">荐</span>
+                                                        </div>
+                                                        <div class="button-group">
+                                                            <a @click="addCart(item.id,1,item.specList[0].param)" title="添加到购物车">
+                                                                <i class="pe-7s-cart"></i>
+                                                            </a>
+                                                            <a class="wishlist" @click="wishlist(item)" title="收藏">
+                                                                <i class="pe-7s-like"></i>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                    <div class="fix">
-                                                        <span class="f-left">{{item.catagory}}</span>
-                                                        <span class="f-right">{{item.brand}}</span>
-                                                    </div>
-                                                </div>									
-                                            </div>
+                                                    <div class="shop-text-all">
+                                                        <div class="title-color fix">
+                                                            <div class="shop-title f-left">
+                                                                <h3><a href="#">{{item.title}}</a></h3>
+                                                            </div>
+                                                            <span class="price f-right">
+                                                                <span class="new">${{item.price}}</span>
+                                                            </span>
+                                                        </div>
+                                                        <div class="fix">
+                                                            <span class="f-left">{{item.catagory.name}}</span>
+                                                            <span class="f-right">{{item.brand.name}}</span>
+                                                        </div>
+                                                    </div>									
+                                                </div>
                                 </div>	
                                 <div v-for="item in commodityList" v-if="item.activity===2" class="col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix3 mb-30">
                                         <div class="single-shop">
@@ -331,38 +327,36 @@
                                                         <a @click=quickView(item) data-toggle="modal" data-target="#quick-view" title="快速查看">
                                                             <i class="pe-7s-look"></i>
                                                         </a>
-                                                    </div>
-                                                    <div class="price-up-down">
-                                                        <span class="sale-new" v-if="item.activity===1">折扣</span>
-                                                        <span class="sale-new" v-if="item.activity===2">秒杀</span>
-                                                        <span class="sale-new1" v-if="item.recommed===1">荐</span>
-                                                    </div>
-                                                    <div class="button-group">
-                                                        <a @click="addCart(item)" title="Add to Cart">
-                                                            <i class="pe-7s-cart"></i>
-                                                            添加到购物车
-                                                        </a>
-                                                        <!-- <a class="wishlist" href="#" title="Wishlist">
-                                                            <i class="pe-7s-like"></i>
-                                                            收藏
-                                                        </a> -->
-                                                    </div>
-                                                </div>
-                                                <div class="shop-text-all">
-                                                    <div class="title-color fix">
-                                                        <div class="shop-title f-left">
-                                                            <h3><a href="#">{{item.title}}</a></h3>
                                                         </div>
-                                                        <span class="price f-right">
-                                                            <span class="new">${{item.price}}</span>
-                                                        </span>
+                                                        <div class="price-up-down">
+                                                            <span class="sale-new" v-if="item.activity===1">折扣</span>
+                                                            <span class="sale-new" v-if="item.activity===2">秒杀</span>
+                                                            <span class="sale-new1" v-if="item.recommed===1">荐</span>
+                                                        </div>
+                                                        <div class="button-group">
+                                                            <a @click="addCart(item.id,1,item.specList[0].param)" title="添加到购物车">
+                                                                <i class="pe-7s-cart"></i>
+                                                            </a>
+                                                            <a class="wishlist" @click="wishlist(item)" title="收藏">
+                                                                <i class="pe-7s-like"></i>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                    <div class="fix">
-                                                        <span class="f-left">{{item.catagory}}</span>
-                                                        <span class="f-right">{{item.brand}}</span>
-                                                    </div>
-                                                </div>									
-                                            </div>
+                                                    <div class="shop-text-all">
+                                                        <div class="title-color fix">
+                                                            <div class="shop-title f-left">
+                                                                <h3><a href="#">{{item.title}}</a></h3>
+                                                            </div>
+                                                            <span class="price f-right">
+                                                                <span class="new">${{item.price}}</span>
+                                                            </span>
+                                                        </div>
+                                                        <div class="fix">
+                                                            <span class="f-left">{{item.catagory.name}}</span>
+                                                            <span class="f-right">{{item.brand.name}}</span>
+                                                        </div>
+                                                    </div>									
+                                                </div>
                                 </div>				
                             </div>	
                             <!-- 分页显示 -->
@@ -736,7 +730,7 @@
                                                                             <div class="por-dse responsive-strok clearfix">
                                                                                 <ul>
                                                                                     <li><span>存货</span><strong>:</strong>{{commodityView.stock}}</li>
-                                                                                    <li><span>类型</span><strong>:</strong>{{commodityView.catagory}}</li>
+                                                                                    <li><span>类型</span><strong>:</strong>{{commodityView.catagory.name}}</li>
                                                                     <div class="row m-p-b">
                                                                                     <li><span>功能</span><strong>:</strong> <a href="#">听歌</a> <a href="#">游戏</a> <a href="#">隔音</a></li>
                                                                                 </ul>
@@ -757,7 +751,7 @@
                                                                                 <div class="por-dse clearfix">
                                                                                     <ul>
                                                                                         <li class="share-btn clearfix"><span>数量</span>
-                                                                                            <input class="input-text qty" name="qty" maxlength="12" value="1" title="Qty" type="text">
+                                                                                            <input v-model="addcommodityQ" class="input-text qty" name="qty" maxlength="12" title="Qty" type="text">
                                                                                         </li>
                                                                                         <li class="share-btn clearfix hidden-xs"><span>分享</span>
                                                                                             <a href="#"><i class="fa fa-facebook"></i></a>
@@ -771,7 +765,7 @@
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-12">
                                                                                 <div class="por-dse add-to">
-                                                                                    <a href="#">添加到购物车</a>
+                                                                                    <a href="#" javascript:void(0) @click="addCart(item.id,addcommodityQ,item.specList[0].param)">添加到购物车</a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -805,11 +799,7 @@
             url1:"http://192.168.43.98:8080/api/commodity/recommed/1",
             customer:{
               name:""
-
-
             },
-
-
             commodity:{
                 id:1,
                 title:'红茶',
@@ -818,8 +808,16 @@
                 shelf:1,
                 recommed:1,     //推荐
                 stock:100,
-                catagory:'',
-                brand:'',
+                catagory:{
+                    id:1,
+                    name:'',
+                    commodityList:[]
+                },
+                brand:{
+                    id:1,
+                    name:'',
+                    commodityList:[]
+                },
                 specList:[],
                 activity:0      //活动
             },
@@ -828,233 +826,84 @@
                 param:'大大大',
                 img:'assets/img/slider/1.jpg'
             },
-            recommedCommodity:{},
-            commodity1:{
-                id:2,
-                title:'来南昌',
-                description:'',     //商品描述
-                price:1006,
-                shelf:1,
-                recommed:1,//推荐
-                stock:100,
-                catagory:'',
-                brand:'',
-                specList:[],
-                activity:1
-            },
-            spec1:{
-                id:1,
-                param:'大大大',
-                img:'assets/img/slider/2.jpg'
-            },
-            commodity2:{
-                id:2,
-                title:'看美女',
-                description:'',     //商品描述
-                price:1006,
-                shelf:1,
-                recommed:1,//推荐
-                stock:100,
-                catagory:'',
-                brand:'',
-                specList:[],
-                activity:2
-            },
-            spec2:{
-                id:1,
-                param:'大大大',
-                img:'assets/img/slider/fashion1.jpg'
-            },
-            commodityList:[],
-            commodity3:{
-                id:2,
-                title:'电脑耳机',
-                description:'',     //商品描述
-                price:1006,
-                shelf:1,
-                recommed:0,//推荐
-                stock:100,
-                catagory:'数码产品',
-                brand:'UBL',
-                specList:[],
-                activity:0
-            },
-            spec3:{
-                id:1,
-                param:'大大大',
-                img:'assets/img/shop/electronics/4.jpg'
-            },
-            commodity4:{
-                id:2,
-                title:'台灯',
-                description:'',     //商品描述
-                price:1006,
-                shelf:1,
-                recommed:0,//推荐
-                stock:100,
-                catagory:'数码产品',
-                brand:'bbb',
-                specList:[],
-                activity:2
-            },
-            spec4:{
-                id:1,
-                param:'大大大',
-                img:'assets/img/shop/electronics/1.jpg'
-            },
-            commodity5:{
-                id:2,
-                title:'投影仪',
-                description:'',     //商品描述
-                price:1006,
-                shelf:1,
-                recommed:1,//推荐
-                stock:100,
-                catagory:'数码产品',
-                brand:'ccc',
-                specList:[],
-                activity:1
-            },
-            spec5:{
-                id:1,
-                param:'大大大',
-                img:'assets/img/shop/electronics/3.jpg'
-            },
-            commodity6:{
-                id:2,
-                title:'男士手表',
-                description:'',     //商品描述
-                price:1006,
-                shelf:1,
-                recommed:1,//推荐
-                stock:100,
-                catagory:'数码产品',
-                brand:'阿斯达',
-                specList:[],
-                activity:0
-            },
-            spec6:{
-                id:1,
-                param:'大大大',
-                img:'assets/img/shop/electronics/2.jpg'
-            },
-            commodity7:{
-                id:2,
-                title:'电风扇',
-                description:'',     //商品描述
-                price:1006,
-                shelf:1,
-                recommed:1,//推荐
-                stock:100,
-                catagory:'家用电器',
-                brand:'事实上',
-                specList:[],
-                activity:0
-            },
-            spec7:{
-                id:1,
-                param:'大大大',
-                img:'assets/img/shop/electronics/5.jpg'
-            },
-            commodity8:{
-                id:2,
-                title:'微波炉',
-                description:'',     //商品描述
-                price:1006,
-                shelf:1,
-                recommed:1,//推荐
-                stock:100,
-                catagory:'微波炉',
-                brand:'思考思考',
-                specList:[],
-                activity:0
-            },
-            spec8:{
-                id:1,
-                param:'大大大',
-                img:'assets/img/shop/electronics/6.jpg'
-            },
+            commodityList:[],//商品列表
+            recommedCommodity:new Array(),//推荐商品
             commodityView:{},//快速查看
             pageNew:1,
-            pages:5,
+            pages:5,//总页数
+            addcommodityQ:1,//加入购物车数量
             classPageA:'page-item active',
             classPageB:'page-item',
             classPageC:'page-item disabled',
             classMixC:'col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix4 mb-30',
             classMixB:'col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix3 mb-30',
             classMixA:'col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix2 mb-30',
-            catagoryList:[],
+            catagoryList:[],//类别列表
             catagory:{
                 id:0,
-                name:''
+                name:'',
+                commodityList:[]
             },
-            brandList:[],
+            brandList:[],//品牌列表
             brand:{
                 id:0,
-                name:''
+                name:'',
+                commodityList:[]
             },
-            link:'</li></ul><ul><li>',
+            Collection:{
+                commodity:{},
+                price:'',
+            }
         },
         methods: {
             init:function(){
+                // 获取客户名字
                 this.customer=JSON.parse(sessionStorage.getItem("customer"));
                 console.log(this.customer.name);
                 // 获取推荐商品
-                axios.get(`${this.url1}`).then(Response=>{
-                    this.recommedCommodity=Response.data;
+                axios.get(`${this.url}/api/commodity/recommed/${1}`).then(Response=>{
+                    this.recommedCommodity=Response.data.list;
+                    console.log(this.recommedCommodity);
                 });
-                console.log(this.recommedCommodity);
+                console.log('推荐商品列表');
+                
 
                 //获取商品
-                // axios.get('').then(Response=>{
-                //     this.commodityList=Response.data.list;
-                //     this.pages=Response.data.size;
-                // });
-                this.commodityList.push(this.commodity);
-                this.commodityList[0].specList.push(this.spec4);
-                this.commodityList.push(this.commodity1);
-                this.commodityList[1].specList.push(this.spec6);
-                this.commodityList.push(this.commodity2);
-                this.commodityList[2].specList.push(this.spec8);
-                this.commodityList.push(this.commodity3);
-                this.commodityList[3].specList.push(this.spec3);
-                this.commodityList.push(this.commodity4);
-                this.commodityList[4].specList.push(this.spec4);
-                this.commodityList[4].specList.push(this.spec4);
-                this.commodityList.push(this.commodity5);
-                this.commodityList[5].specList.push(this.spec5);
-                this.commodityList[5].specList.push(this.spec4);
-                this.commodityList.push(this.commodity6);
-                this.commodityList[6].specList.push(this.spec6);
-                this.commodityList[6].specList.push(this.spec4);
-                this.commodityList.push(this.commodity7);
-                this.commodityList[7].specList.push(this.spec7);
-                this.commodityList[7].specList.push(this.spec4);
-                this.commodityList[7].specList.push(this.spec4);
-                this.commodityList.push(this.commodity8);
-                this.commodityList[8].specList.push(this.spec8);
-                this.commodityList[8].specList.push(this.spec4);
-                console.log(this.commodityList);
+                axios.get(`${this.url}/api/commodity/allcomm/${this.pageNew}`).then(Response=>{
+                    this.commodityList=Response.data.list;
+                    this.pages=Response.data.size;
+                    console.log(this.commodityList);
+                });
 
                 // 获取商品类别列表
-                // axios.get(`${this.url}/api/commodity/category`).then(Response=>{
-                // this.catagoryList=Response.data;
-                // });
+                axios.get(`${this.url}/api/commodity/category`).then(Response=>{
+                this.catagoryList=Response.data;
+                });
 
                 // 获取商品品牌列表
-                // axios.get('').then(Response=>{
-                //     this.brandList=Response.data;
-                // });
+                axios.get(`${this.url}/api/commodity/brand`).then(Response=>{
+                    this.brandList=Response.data;
+                });
             },
+
             quickView:function(q){
                 this.commodityView=q;
             },
+
+            //查询某一页的商品
+            quickpage:function(i){
+                axios.get(`${this.url}/api/commodity/${i}`).then(Response=>{
+                    this.commodityList=Response.data.list;
+                });
+            },
+
+            //换一页
             selectPage:function(i){
                 this.pageNew=i+1;
-                // axios.get('').then(Response=>{
-                //     this.commodityList=Response.data;
-                // });
+                quickpage(this.pageNew);
             },
+            
+            //加减页数
             changePage:function(n){
                 this.pageNew+=n;
                 if(this.pageNew<=0){
@@ -1064,17 +913,26 @@
                     this.pageNew=this.pages;
                 };
                 console.log(this.pageNew);
+                quickpage(this.pageNew);
             },
 
             // 添加购物车
-            addCart:function(c){
-                // axios.post('',c).then(Response=>{})
+            addCart:function(c,q,p){
+                const param=new URLSearchParams();
+                param.append('commodityid',c);
+                param.append('quantity',q);
+                param.append('param',p);
+                axios.post(`${this.url}/api/cart/addcart`,param).then(Response=>{})
                 console.log('添加购物车')
             },
 
             // 收藏
             wishlist:function(c){
-                // axios.post('',c).then(Response=>{})
+                const param=new URLSearchParams();
+                this.Collection.commodity.id=c.id;
+                this.Collection.price=c.price;
+                param.append('Colleciton',this.Collection);
+                axios.post(`${this.url}/api/customer/collection`,param).then(Response=>{})
                 console.log('收藏');
             }
         },

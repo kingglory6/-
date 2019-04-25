@@ -630,24 +630,33 @@
               this.money=this.money+(this.cart[n].quantity*this.cart[n].commodity.price);
             }
           },
-          // 选择页码
-          selectPage:function(i){
+
+          //查询某一页的商品
+          quickpage:function(i){
+                axios.get(`${this.url}/api/commodity/${i}`).then(Response=>{
+                    this.commodityList=Response.data.list;
+                });
+            },
+
+            //换一页
+            selectPage:function(i){
                 this.pageNew=i+1;
-                // axios.get('').then(Response=>{
-                //     this.commodityList=Response.data;
-                // });
-          },
-          // 加减页码
-          changePage:function(n){
-            this.pageNew+=n;
-            if(this.pageNew<=0){
-                this.pageNew=1;
-            };
-            if(this.pageNew>=this.pages){
-              this.pageNew=this.pages;
-            };
-            console.log(this.pageNew);
-          },
+                quickpage(this.pageNew);
+            },
+            
+            //加减页数
+            changePage:function(n){
+                this.pageNew+=n;
+                if(this.pageNew<=0){
+                    this.pageNew=1;
+                };
+                if(this.pageNew>=this.pages){
+                    this.pageNew=this.pages;
+                };
+                console.log(this.pageNew);
+                quickpage(this.pageNew);
+            },
+            
           // 删除订单项
           del:function(cid,sid){
             console.log('删除商品:'+cid);
