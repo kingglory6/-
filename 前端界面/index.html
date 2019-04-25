@@ -141,7 +141,7 @@
                                                     <li class="mega-position"><a href="shop-page.html">全部 </a>
                                                         <div class="mega-menu mega-3-colm">
                                                             <ul>
-                                                                <li v-for="item in catagoryList"><a
+                                                                <li v-for="item in categoryList"><a
                                                                         href="shop-page.html">{{item.name}}</a></li>
                                                             </ul>
                                                         </div>
@@ -208,7 +208,8 @@
                                     class="col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix4 mb-30">
                                     <div class="single-shop">
                                         <div class="shop-img">
-                                            <a href="#"><img :src="item && item.specList[0].img" alt="" /></a>
+                                            <a href="#"><img v-if="item.specList[0]"
+                                                    :src="item.specList[0] && item.specList[0].img" alt="" /></a>
                                             <div class="shop-quick-view">
                                                 <a @click=quickView(item) data-toggle="modal" data-target="#quick-view"
                                                     title="快速查看">
@@ -239,7 +240,7 @@
                                                 </span>
                                             </div>
                                             <div class="fix">
-                                                <span class="f-left">{{item.catagory}}</span>
+                                                <span class="f-left">{{item.category.name}}</span>
                                                 <span class="f-right">{{item.brand.name}}</span>
                                             </div>
                                         </div>
@@ -249,7 +250,8 @@
                                     class="col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix2 mb-30">
                                     <div class="single-shop">
                                         <div class="shop-img">
-                                            <a href="#"><img :src="item && item.specList[0].img" alt="" /></a>
+                                            <a href="#"><img v-if="item.specList[0]"
+                                                    :src="item.specList[0] && item.specList[0].img" alt="" /></a>
                                             <div class="shop-quick-view">
                                                 <a @click=quickView(item) data-toggle="modal" data-target="#quick-view"
                                                     title="快速查看">
@@ -280,7 +282,7 @@
                                                 </span>
                                             </div>
                                             <div class="fix">
-                                                <span class="f-left">{{item.catagory.name}}</span>
+                                                <span class="f-left">{{item.category.name}}</span>
                                                 <span class="f-right">{{item.brand.name}}</span>
                                             </div>
                                         </div>
@@ -290,7 +292,8 @@
                                     class="col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix3 mb-30">
                                     <div class="single-shop">
                                         <div class="shop-img">
-                                            <a href="#"><img :src="item && item.specList[0].img" alt="" /></a>
+                                            <a href="#"><img v-if="item.specList[0]"
+                                                    :src="item.specList[0] && item.specList[0].img" alt="" /></a>
                                             <div class="shop-quick-view">
                                                 <a @click=quickView(item) data-toggle="modal" data-target="#quick-view"
                                                     title="快速查看">
@@ -321,7 +324,7 @@
                                                 </span>
                                             </div>
                                             <div class="fix">
-                                                <span class="f-left">{{item.catagory}}</span>
+                                                <span class="f-left">{{item.category.name}}</span>
                                                 <span class="f-right">{{item.brand.name}}</span>
                                             </div>
                                         </div>
@@ -331,7 +334,7 @@
                             <!-- 分页显示 -->
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
-                                    <li :class="(pageNew===1)?classPageC:classPageB">
+                                    <li :class="(pageNum===1)?classPageC:classPageB">
                                         <!-- disabled 不允许点击-->
                                         <a class="page-link" @click="changePage(-1)" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
@@ -339,9 +342,9 @@
                                         </a>
                                     </li>
                                     <li v-for="(n, index) in pages" :key="index"
-                                        :class="(pageNew===index+1)?classPageA:classPageB"><a class="page-link"
+                                        :class="(pageNum===index+1)?classPageA:classPageB"><a class="page-link"
                                             @click="selectPage(index)">{{index+1}}</a></li>
-                                    <li :class="(pageNew===pages)?classPageC:classPageB">
+                                    <li :class="(pageNum===pages)?classPageC:classPageB">
                                         <a class="page-link" @click="changePage(1)" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                             <span class="sr-only">Next</span>
@@ -612,30 +615,36 @@
                                                         <div class="col-xs-12 col-sm-5">
                                                             <div class="quick-image">
                                                                 <div class="single-quick-image tab-content text-center">
-                                                                    <div v-if="commodityView.specList!=null"
-                                                                        v-for="(item,i) in commodityView.specList"
+                                                                    <div v-for="(item,i) in commodityView.specList"
                                                                         :key="i" v-if="i===0"
                                                                         class="tab-pane fade in active" :id="i">
-                                                                        <img :src="item && item.img"
-                                                                            :alt="item.param" />
+                                                                        <img v-if="item" :src="item && item.img"
+                                                                            :alt="item.param"
+                                                                            :title="`${item.param}`" />
                                                                     </div>
-                                                                    <div v-if="commodityView.specList!=null"
-                                                                        v-for="(item,i) in commodityView.specList"
+                                                                    <div v-for="(item,i) in commodityView.specList"
                                                                         :key="i" v-if="i!=0" class="tab-pane fade in"
                                                                         :id="i">
-                                                                        <img :src="item && item.img"
-                                                                            :alt="item.param" />
+                                                                        <img v-if="item" :src="item && item.img"
+                                                                            :alt="item.param"
+                                                                            :title="`${item.param}`" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="quick-thumb">
                                                                     <div class="nav nav-tabs">
                                                                         <ul>
-                                                                            <li v-if="commodityView.specList!=null"
-                                                                                v-for="(item,index) in commodityView.specList"
-                                                                                :key="index"><a data-toggle="tab"
-                                                                                    :href="`#${index}`"> <img
+                                                                            <li v-for="(item,index) in commodityView.specList"
+                                                                                :key="index">
+                                                                                <a @click="selparam(index)"
+                                                                                    data-toggle="tab"
+                                                                                    :href="`#${index}`">
+                                                                                    <img v-if="item"
                                                                                         :src="item && item.img"
-                                                                                        alt="quick view" /> </a></li>
+                                                                                        :alt="`#${item.param}`"
+                                                                                        :title="`${item.param}`" />
+                                                                                </a><br>
+                                                                                <span>{{item.param}}</span>
+                                                                            </li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -661,30 +670,10 @@
                                                                             <ul>
                                                                                 <li><span>存货</span><strong>:</strong>{{commodityView.stock}}
                                                                                 </li>
-                                                                                <div class="row m-p-b">
-                                                                                    <li><span>功能</span><strong>:</strong>
-                                                                                        <a href="#">听歌</a> <a
-                                                                                            href="#">游戏</a> <a
-                                                                                            href="#">隔音</a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-12 col-md-6">
-                                                                        <div class="por-dse color">
-                                                                            <ul>
-                                                                                <li><span>颜色</span><strong>:</strong> <a
-                                                                                        href="#">红色</a> <a
-                                                                                        href="#">绿色</a> <a
-                                                                                        href="#">白色</a></li>
-                                                                                <li><span>大小</span><strong>:</strong> <a
-                                                                                        href="#">SL</a> <a
-                                                                                        href="#">SX</a> <a
-                                                                                        href="#">M</a> <a
-                                                                                        href="#">XL</a></li>
-                                                                                <li><span>标签</span><strong>:</strong> <a
-                                                                                        href="#">潮流</a> <a
-                                                                                        href="#">时尚</a> <a
-                                                                                        href="#">科技</a></li>
+                                                                                <li><span>类别</span><strong>:</strong>{{commodityView.category.name}}
+                                                                                </li>
+                                                                                <li><span>品牌</span><strong>:</strong>{{commodityView.brand.name}}
+                                                                                </li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
@@ -722,7 +711,7 @@
                                                                             <div class="col-sm-12 col-md-12">
                                                                                 <div class="por-dse add-to">
                                                                                     <a href="javascript:void(0)"
-                                                                                        @click="addCart(item.id,addcommodityQ,item.specList[0].param)">添加到购物车</a>
+                                                                                        @click="addCart(commodityView.id,addcommodityQ,commodityView.specList[addParamindex].param)">添加到购物车</a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -757,14 +746,14 @@
                 customer: {
                     name: ""
                 },
-                commodity: {
+                commodity: {//商品
                     id: 1,
                     title: '红茶',
                     description: '我跟你讲这是一个非常好的耳机你不买就亏大发了，我套你猴子的，赶紧买！',     //商品描述
                     price: 1000,
                     recommed: 1,     //推荐
                     stock: 100,
-                    catagory: {
+                    category: {
                         id: 1,
                         name: '',
                     },
@@ -779,32 +768,109 @@
                     }],
                     activity: 0      //活动
                 },
-                commodityList: [],//商品列表
-                recommedCommodity: [],//推荐商品
-                commodityView: {},//快速查看
-                pageNew: 1,
-                pages: 5,//总页数
+
+                commodityList: [{//商品列表
+                    id: 1,
+                    title: '红茶',
+                    description: '我跟你讲这是一个非常好的耳机你不买就亏大发了，我套你猴子的，赶紧买！',     //商品描述
+                    price: 1000,
+                    recommed: 1,     //推荐
+                    stock: 100,
+                    category: {
+                        id: 1,
+                        name: '',
+                    },
+                    brand: {
+                        id: 1,
+                        name: '手机',
+                    },
+                    specList: [{
+                        id: 1,
+                        param: '大大大',
+                        img: 'assets/img/slider/1.jpg'
+                    }],
+                    activity: 0      //活动
+                }],
+
+                recommedCommodity: [{//推荐商品
+                    id: 1,
+                    title: '红茶',
+                    description: '我跟你讲这是一个非常好的耳机你不买就亏大发了，我套你猴子的，赶紧买！',     //商品描述
+                    price: 1000,
+                    recommed: 1,     //推荐
+                    stock: 100,
+                    category: {
+                        id: 1,
+                        name: '',
+                    },
+                    brand: {
+                        id: 1,
+                        name: '手机',
+                    },
+                    specList: [{
+                        id: 1,
+                        param: '大大大',
+                        img: 'assets/img/slider/1.jpg'
+                    }],
+                    activity: 0      //活动
+                }],
+
+                commodityView: {//快速查看
+                    id: 1,
+                    title: '红茶',
+                    description: '我跟你讲这是一个非常好的耳机你不买就亏大发了，我套你猴子的，赶紧买！',     //商品描述
+                    price: 1000,
+                    recommed: 1,     //推荐
+                    stock: 100,
+                    category: {
+                        id: 1,
+                        name: '',
+                    },
+                    brand: {
+                        id: 1,
+                        name: '手机',
+                    },
+                    specList: [{
+                        id: 1,
+                        param: '大大大',
+                        img: 'assets/img/slider/1.jpg'
+                    }],
+                    activity: 0      //活动
+                },
+
+                categoryList: [{//类别列表
+                    id: 0,
+                    name: '',
+                }],
+
+                brandList: [{//品牌列表
+                    id: 0,
+                    name: ''
+                }],
+
+                Collection: {//收藏
+                    commodity: {},
+                    price: '',
+                },
+
+                pageNum: 1,
+
+                pages: 1,//总页数
+
                 addcommodityQ: 1,//加入购物车数量
+                addParamindex: 0,//加入购物车参数下标
+
                 defaultimg: 'assets/img/slider/1.jpg',
+
+                //css样式
                 classPageA: 'page-item active',
                 classPageB: 'page-item',
                 classPageC: 'page-item disabled',
                 classMixC: 'col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix4 mb-30',
                 classMixB: 'col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix3 mb-30',
                 classMixA: 'col-md-3 col-sm-6 col-xs-12 grid-item mix1 mix2 mb-30',
-                catagoryList: [{
-                    id: 0,
-                    name: '',
-                }],//类别列表
-                brandList: [{
-                    id: 0,
-                    name: ''
-                }],//品牌列表
-                Collection: {
-                    commodity: {},
-                    price: '',
-                }
             },
+
             methods: {
                 init: function () {
                     // 获取客户名字
@@ -819,17 +885,18 @@
 
 
                     //获取商品
-                    axios.get(`${this.url}/api/commodity/allcomm/${this.pageNew}`).then(Response => {
+                    axios.get(`${this.url}/api/commodity/allcomm/${this.pageNum}`).then(Response => {
                         this.commodityList = Response.data.list;
-                        this.pages = Response.data.size;
+                        this.pages = Response.data.pages;
+                        console.log(this.pages);
                         console.log(this.commodityList);
                     });
 
                     // 获取商品类别列表`http://192.168.43.98:8080/api/commodity/category`
                     axios.get(`${this.url}/api/commodity/category`).then(Response => {
-                        this.catagoryList = Response.data;
+                        this.categoryList = Response.data;
                         console.log('类别列表');
-                        console.log(this.catagoryList);
+                        console.log(this.categoryList);
                     });
 
                     // 获取商品品牌列表
@@ -840,8 +907,15 @@
 
                 },
 
+                //快速查看
                 quickView: function (q) {
                     this.commodityView = q;
+                    this.addParam = q.specList[0].param;
+                },
+
+                //选择参数
+                selparam(i) {
+                    this.addParamindex = i;
                 },
 
                 //查询某一页的商品
@@ -853,31 +927,36 @@
 
                 //换一页
                 selectPage: function (i) {
-                    this.pageNew = i + 1;
-                    quickpage(this.pageNew);
+                    this.pageNum = i + 1;
+                    quickpage(this.pageNum);
                 },
 
                 //加减页数
                 changePage: function (n) {
-                    this.pageNew += n;
-                    if (this.pageNew <= 0) {
-                        this.pageNew = 1;
+                    if (n >= this.pages)
+                        this.pageNum += n;
+                    if (this.pageNum <= 0) {
+                        this.pageNum = 1;
                     };
-                    if (this.pageNew >= this.pages) {
-                        this.pageNew = this.pages;
+                    if (this.pageNum >= this.pages) {
+                        this.pageNum = this.pages;
                     };
-                    console.log(this.pageNew);
-                    quickpage(this.pageNew);
+                    console.log(this.pageNum);
+                    quickpage(this.pageNum);
                 },
 
                 // 添加购物车
                 addCart: function (c, q, p) {
-                    const param = new URLSearchParams();
-                    param.append('commodityid', c);
-                    param.append('quantity', q);
-                    param.append('param', p);
-                    axios.post(`${this.url}/api/cart/addcart`, param).then(Response => { })
-                    console.log('添加购物车')
+                    // const param = new URLSearchParams();
+                    // param.append('commodityid', c);
+                    // param.append('quantity', q);
+                    // param.append('param', p);
+                    // axios.post(`${this.url}/api/cart/addcart`, param).then(Response => { })
+                    // console.log('添加购物车')
+                    console.log(q);
+                    console.log(p);
+                    this.addcommodityQ = 1;
+                    this.addParamindex = 0;
                 },
 
                 // 收藏
