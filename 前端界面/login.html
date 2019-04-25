@@ -46,7 +46,7 @@
                         <button type="button" class="btn btn-default">人民币</button>
                         <button type="button" class="btn btn-default">美元</button>
                     </div>
-                    <h5 class="mt-2" >我的账户:{{customer.name}}</h5>
+                    <h5 class="mt-2" >我的账户:{{client.name}}</h5>
                     <a href=""><i class="pe-7s-next-2"></i><span>我的信息</span></a>
                     <a href="cart.html"><i class="pe-7s-cart"></i><span>我的购物车</span></a>
                     <a href="order.html"><i class="pe-7s-like"></i><span>我的订单</span></a>
@@ -143,7 +143,7 @@
                                                     <li class="mega-position"><a href="shop-page.html">全部 </a>
                                                         <div class="mega-menu mega-3-colm">
                                                             <ul>
-                                                                <li v-for="item in catagoryList"><a href="shop-page.html">{{item}}</a></li>
+                                                                <li v-for="item in categoryList"><a href="shop-page.html">{{item}}</a></li>
                                                             </ul>
                                                         </div>
                                                     </li>
@@ -404,7 +404,7 @@
                     token:""
                     
                 },
-               
+               categoryList:[],
                 
 
               },
