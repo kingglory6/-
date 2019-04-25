@@ -197,7 +197,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="p in cart">
+                        <tr v-for="(p,index) in cart">
                           <td class="product-thumbnail">
                             <a :href="`#${p.spec.param}`"><img v-bind:src='p.spec.img' :alt="`#${p.spec.param}`" /></a>
                           </td>
@@ -212,7 +212,7 @@
                           </td>
                           <td class="product-subtotal">${{p.commodity.price*p.quantity}}</td>
                           <td class="product-remove">
-                            <i class="fa fa-times" @click="del(p.commodity.id,p.spec.id)"></i>
+                            <i class="fa fa-times" @click="del(index)"></i>
                           </td>
                         </tr>
                       </tbody>
@@ -464,6 +464,7 @@
     new Vue({
       el: "#cart",
       data: {
+        spec:'',
         url: 'http://192.168.43.98:8080',
         customer: {
           id: "",
@@ -505,9 +506,6 @@
         // 初始化,获取购物车列表
         init: function () {
           this.customer = JSON.parse(sessionStorage.getItem("customer"));
-          console.log(this.customer.id)
-          console.log(this.customer.token)
-          console.log(222)
           axios.get(`${this.url}/api/v1/cart/check/${this.pagenum}`, 
           { 
             params:{
@@ -556,14 +554,22 @@
           console.log(this.pagenum);
         },
         // 删除订单项
-        del: function (cid, sid) {
-          console.log('删除商品:' + cid);
-          console.log('规格id:' + sid);
+        del: function (index) {
+          console.log('删除商品');
+          console.log(index)
           const param = new URLSearchParams();
-          param.append("cid", cid);
-          param.append("sid", sid);
-          axios.post(`${this.url}` / api / v1 / cart / dlt, param).then((Response) => { });
-          this.init();
+          param.append("sid", this.cart[index].spec.id);
+          param.append("cid", this.cart[index].commodity.id);
+          param.append("uid", this.customer.id);
+          console.log(this.cart[index].spec.id,this.cart[index].commodity.id,this.customer.id)
+          axios.post(`${this.url}/api/v1/cart/dlt`, param,
+          {
+            headers:{
+              'Authorization':`Bearer${this.customer.token}`
+            }
+          }).then((Response) => {
+            this.init();
+           });
         },
 
         // 是否修改
