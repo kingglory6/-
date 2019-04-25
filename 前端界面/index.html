@@ -970,9 +970,9 @@
                     // params.append("collection", this.Collection)
                     console.log(this.customer.id);
 
-                    axios.post(`${this.url}/api/customer/collection/${this.customer.id}`,
+                    axios.post(`${this.url}/api/customer/collection`,
                         {
-                            // id: this.customer.id,
+                            id: this.customer.id,
                             collection: [this.Collection]
                         }, {
                             headers: { 'Authorization': `Bearer${this.customer.token}` }
