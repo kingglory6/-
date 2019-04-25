@@ -742,7 +742,6 @@
             el: '.canvas-wrapper',
             data: {
                 url: "http://192.168.43.98:8080",
-                url1: "http://192.168.43.98:8080/api/commodity/recommed/1",
                 customer: {
                     id: 0,
                     name: '未登录',
@@ -973,7 +972,7 @@
                     axios.post(`${this.url}/api/customer/collection`,
                         {
                             id: this.customer.id,
-                            collection: [this.Collection]
+                            collectionList: [this.Collection]
                         }, {
                             headers: { 'Authorization': `Bearer${this.customer.token}` }
                         }
