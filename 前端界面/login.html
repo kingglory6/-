@@ -390,6 +390,10 @@
           new Vue({
               el:"#login",
               data:{
+                customer:{
+              id:"",
+             name:"",
+          },
                   url :"http://192.168.43.98:8080",
                 client:{
                     id:1,
@@ -413,13 +417,19 @@
                     param.append("password",this.client.password);
                     axios.post(`${this.url}/api/customer/login`,param)
                     .then(res => {
-                        
-                        console.log(res)
+                        if(res.data!==""){
+                            console.log(11111111111111)
+                            console.log(res.data)
+
                         this.client=res.data;
                         let customer=JSON.stringify(this.client)
                         sessionStorage.setItem("customer",customer);
                         console.log(sessionStorage.getItem("customer"))
-                        window.location.href='index.html';
+                         window.location.href='index.html';
+                        }else{
+                            alert("账户或者密码错误！");
+                        }
+                       
                     })
                     .catch(err => {
                         console.error(err); 
