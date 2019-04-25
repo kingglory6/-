@@ -393,7 +393,7 @@
                 customer:{
               id:"",
              name:"",
-          },
+                   },
                   url :"http://192.168.43.98:8080",
                 client:{
                     id:1,
@@ -425,7 +425,8 @@
                         let customer=JSON.stringify(this.client)
                         sessionStorage.setItem("customer",customer);
                         console.log(sessionStorage.getItem("customer"))
-                         window.location.href='index.html';
+                        window.location.href='index.html';
+                         
                         }else{
                             alert("账户或者密码错误！");
                         }
