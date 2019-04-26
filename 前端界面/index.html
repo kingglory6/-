@@ -170,14 +170,12 @@
                 <!-- 轮播 -->
                 <section class="hero-slider-container">
                     <div class="hero-slider owl-carousel">
-                        <div class="hero-slider-item note">
-                            <div v-for="item in recommedCommodity" class="hero-slider-item note"
-                                :style="{backgroundImage:'url('+item.specList[0].img+')'}">
-                                <div class="container">
-                                    <h1 class="title1">{{item.title}}</h1>
-                                    <p class="title2">新品推荐 2019</p>
-                                    <a href="#" class="button-hover">现在购买</a>
-                                </div>
+                        <div v-for="item in recommedCommodity" class="hero-slider-item note"
+                            :style="{backgroundImage:'url('+item.specList[0].img+')'}">
+                            <div class="container">
+                                <h1 class="title1">{{item.title}}</h1>
+                                <p class="title2">新品推荐 2019</p>
+                                <a href="#" class="button-hover">现在购买</a>
                             </div>
                         </div>
                     </div>
