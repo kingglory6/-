@@ -1,4 +1,4 @@
-﻿ <!doctype html>
+﻿<!doctype html>
 <html class="no-js" lang="en">
 
 <head>
@@ -170,14 +170,12 @@
                 <!-- 轮播 -->
                 <section class="hero-slider-container">
                     <div class="hero-slider owl-carousel">
-                        <div class="hero-slider-item note">
-                            <div v-for="item in recommedCommodity" class="hero-slider-item note"
-                                :style="{backgroundImage:'url('+item.specList[0].img+')'}">
-                                <div class="container">
-                                    <h1 class="title1">{{item.title}}</h1>
-                                    <p class="title2">新品推荐 2019</p>
-                                    <a href="#" class="button-hover">现在购买</a>
-                                </div>
+                        <div v-for="item in recommedCommodity" class="hero-slider-item note"
+                            :style="{backgroundImage:'url('+item.specList[0].img+')'}">
+                            <div class="container">
+                                <h1 class="title1">{{item.title}}</h1>
+                                <p class="title2">新品推荐 2019</p>
+                                <a href="#" class="button-hover">现在购买</a>
                             </div>
                         </div>
                     </div>
@@ -856,14 +854,17 @@
                     price: '',
                 },
 
+                // 足迹
+                History: {
+                    commodity: { id: 0 }
+                },
+
                 pageNum: 1,
 
                 pages: 1,//总页数
 
                 addcommodityQ: 1,//加入购物车数量
                 addParamindex: 0,//加入购物车参数下标
-
-                defaultimg: 'assets/img/slider/1.jpg',
 
                 //css样式
                 classPageA: 'page-item active',
@@ -905,10 +906,16 @@
 
                 },
 
-                //快速查看
+                //快速查看 添加足迹
                 quickView: function (q) {
+                    this.History.commodity.id = q.id;
                     this.commodityView = q;
                     this.addParam = q.specList[0].param;
+                    axios.post(`${this.url}//api/customer/foot`, {
+                        id: this.customer.id,
+                        historyList: [this.History]
+                    }, { headers: { 'Authorization': `Bearer${this.customer.token}` } }).then(Response => { });
+                    console.log('足迹');
                 },
 
                 //选择参数
