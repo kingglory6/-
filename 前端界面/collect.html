@@ -139,18 +139,18 @@
 
                                                     </li>
 
-                                                    <li class="mega-position"><a href="shop-page.html">全部 </a>
+                                                    <li class="mega-position"><a href="shopList.html">全部 </a>
                                                         <div class="mega-menu mega-3-colm">
                                                             <ul>
                                                                 <li v-for="item in categoryList"><a
-                                                                        href="shop-page.html">{{item}}</a></li>
+                                                                        href="shop-page.html">{{item.name}}</a></li>
                                                             </ul>
                                                         </div>
                                                     </li>
 
                                                     <li><a href="footprint.html">足迹</a>
                                                     </li>
-                                                    <li><a href="footprint.html">收藏</a>
+                                                    <li><a href="collect.html">收藏</a>
 
                                                     </li>
                                                     <li><a href="login.html">登录</a></li>
@@ -190,6 +190,7 @@
                                         </li>
                                     </ul>
                                 </div> -->
+                <!-- 商品信息 -->
                 <div class="tab-content">
                     <div class="tab-pane active" id="dresses">
                         <div class="row">
@@ -201,8 +202,8 @@
                                             <a href="#"><img :src="history[index].commodity.specList[0].img"
                                                     alt="" /></a>
                                             <div class="shop-quick-view">
-                                                <a href="#" data-toggle="modal" data-target="#quick-view"
-                                                    title="Quick View">
+                                                <a href="#" @Click="showNowCommodity(index)" data-toggle="modal"
+                                                    data-target="#quick-view" title="Quick View">
                                                     <i class="pe-7s-look"></i>
                                                 </a>
                                             </div>
@@ -210,11 +211,12 @@
                                                 <span class="sale-new">足迹</span>
                                             </div>
                                             <div class="button-group">
-                                                <a href="javascript:void(0)" @Click="addCart(index)" title="Add to Cart">
+                                                <a href="#" @Click="showNowCommodity(index)" data-toggle="modal"
+                                                    data-target="#quick-view" title="Quick View" title="Add to Cart">
                                                     <i class="pe-7s-cart"></i>
                                                     加入购物车
                                                 </a>
-                                                <a class="wishlist" href="#" title="Wishlist">
+                                                <a class="wishlist" href="#" title="Wishlist" @Click="wishlist(index)">
                                                     <i class="pe-7s-like"></i>
                                                     收藏
                                                 </a>
@@ -242,8 +244,137 @@
                 </div>
             </div>
         </div>
+
+        <!-- 弹出视图 -->
+        <div class="quick-view modal fade in" id="quick-view">
+            <div class="container">
+                <div class="row">
+                    <div id="view-gallery">
+                        <div class="col-xs-12">
+                            <div class="d-table">
+                                <div class="d-tablecell">
+                                    <div class="modal-dialog">
+                                        <div class="main-view modal-content">
+                                            <div class="modal-footer" data-dismiss="modal">
+                                                <span>x</span>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-5">
+                                                    <div class="quick-image">
+                                                        <div class="single-quick-image tab-content text-center">
+                                                            <div v-for="(item,i) in nowCommodity.specList" :key="i"
+                                                                v-if="i===0" class="tab-pane fade in active" :id="i">
+                                                                <img v-if="item" :src="item && item.img"
+                                                                    :alt="item.param" :title="`${item.param}`" />
+                                                            </div>
+                                                            <div v-for="(item,i) in nowCommodity.specList" :key="i"
+                                                                v-if="i!=0" class="tab-pane fade in" :id="i">
+                                                                <img v-if="item" :src="item && item.img"
+                                                                    :alt="item.param" :title="`${item.param}`" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="quick-thumb">
+                                                            <div class="nav nav-tabs">
+                                                                <ul>
+                                                                    <li v-for="(item,index) in nowCommodity.specList"
+                                                                        :key="index">
+                                                                        <a @click="selparam(index)" data-toggle="tab"
+                                                                            :href="`#${index}`">
+                                                                            <img v-if="item" :src="item && item.img"
+                                                                                :alt="`#${item.param}`"
+                                                                                :title="`${item.param}`" />
+                                                                        </a><br>
+                                                                        <span>{{item.param}}</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-7">
+                                                    <div class="quick-right">
+                                                        <div class="quick-right-text">
+                                                            <h3><strong>{{nowCommodity.title}}</strong></h3>
+                                                            <div class="rating">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star-half-o"></i>
+                                                                <i class="fa fa-star-o"></i>
+                                                            </div>
+                                                            <div class="amount">
+                                                                <h4>${{nowCommodity.price}}</h4>
+                                                            </div>
+                                                            <p>{{nowCommodity.description}}</p>
+                                                            <div class="col-sm-12 col-md-6">
+                                                                <div class="por-dse responsive-strok clearfix">
+                                                                    <ul>
+                                                                        <li><span>存货</span><strong>:</strong>{{nowCommodity.stock}}
+                                                                        </li>
+                                                                        <li><span>类别</span><strong>:</strong>{{categoryname}}
+                                                                        </li>
+                                                                        <li><span>品牌</span><strong>:</strong>{{brandname}}
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="dse-btn">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 col-md-12">
+                                                                        <div class="por-dse clearfix">
+                                                                            <ul>
+                                                                                <li class="share-btn clearfix">
+                                                                                    <span>数量</span>
+                                                                                    <input v-model="commodityNum"
+                                                                                        class="input-text qty"
+                                                                                        name="qty" maxlength="12"
+                                                                                        title="Qty" type="text">
+                                                                                </li>
+                                                                                <li
+                                                                                    class="share-btn clearfix hidden-xs">
+                                                                                    <span>分享</span>
+                                                                                    <a href="#"><i
+                                                                                            class="fa fa-facebook"></i></a>
+                                                                                    <a href="#"><i
+                                                                                            class="fa fa-twitter"></i></a>
+                                                                                    <a href="#"><i
+                                                                                            class="fa fa-google-plus"></i></a>
+                                                                                    <a href="#"><i
+                                                                                            class="fa fa-linkedin"></i></a>
+                                                                                    <a href="#"><i
+                                                                                            class="fa fa-instagram"></i></a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12 col-md-12">
+                                                                        <div class="por-dse add-to">
+                                                                            <a href="javascript:void(0)"
+                                                                                @click="addCart()">添加到购物车</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <!-- single product area end -->
+
+
+
+
+
 
     <!-- 关于我们 -->
     <footer class="footer-area">
@@ -385,146 +516,7 @@
         </div>
     </footer>
 
-    <!-- 弹出视图 -->
-    <div class="quick-view modal fade in" id="quick-view">
-        <div class="container">
-            <div class="row">
-                <div id="view-gallery">
-                    <div class="col-xs-12">
-                        <div class="d-table">
-                            <div class="d-tablecell">
-                                <div class="modal-dialog">
-                                    <div class="main-view modal-content">
-                                        <div class="modal-footer" data-dismiss="modal">
-                                            <span>x</span>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-5">
-                                                <div class="quick-image">
-                                                    <div class="single-quick-image tab-content text-center">
-                                                        <div class="tab-pane  fade in active" id="sin-pro-1">
-                                                            <img src="assets/img/shop/q1.jpg" alt="" />
-                                                        </div>
-                                                        <div class="tab-pane fade in" id="sin-pro-2">
-                                                            <img src="assets/img/shop/q2.jpg" alt="" />
-                                                        </div>
-                                                        <div class="tab-pane fade in" id="sin-pro-3">
-                                                            <img src="assets/img/shop/q3.jpg" alt="" />
-                                                        </div>
-                                                        <div class="tab-pane fade in" id="sin-pro-4">
-                                                            <img src="assets/img/shop/q4.jpg" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="quick-thumb">
-                                                        <div class="nav nav-tabs">
-                                                            <ul>
-                                                                <li><a data-toggle="tab" href="#sin-pro-1"> <img
-                                                                            src="assets/img/shop/q1.jpg"
-                                                                            alt="quick view" /> </a></li>
-                                                                <li><a data-toggle="tab" href="#sin-pro-2"> <img
-                                                                            src="assets/img/shop/q2.jpg"
-                                                                            alt="quick view" /> </a></li>
-                                                                <li><a data-toggle="tab" href="#sin-pro-3"> <img
-                                                                            src="assets/img/shop/q3.jpg"
-                                                                            alt="quick view" /> </a></li>
-                                                                <li><a data-toggle="tab" href="#sin-pro-4"> <img
-                                                                            src="assets/img/shop/q4.jpg"
-                                                                            alt="quick view" /> </a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-7">
-                                                <div class="quick-right">
-                                                    <div class="quick-right-text">
-                                                        <h3><strong>电脑耳机</strong></h3>
-                                                        <div class="rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-half-o"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </div>
-                                                        <div class="amount">
-                                                            <h4>$65.00</h4>
-                                                        </div>
-                                                        <p>我跟你讲这是一个非常好的耳机你不买就亏大发了，我套你猴子的，赶紧买！</p>
-                                                        <div class="row m-p-b">
-                                                            <div class="col-sm-12 col-md-6">
-                                                                <div class="por-dse responsive-strok clearfix">
-                                                                    <ul>
-                                                                        <li><span>存货</span><strong>:</strong>9999</li>
-                                                                        <li><span>类型</span><strong>:</strong>耳机</li>
-                                                                        <li><span>功能</span><strong>:</strong> <a
-                                                                                href="#">听歌</a> <a href="#">游戏</a> <a
-                                                                                href="#">隔音</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-12 col-md-6">
-                                                                <div class="por-dse color">
-                                                                    <ul>
-                                                                        <li><span>颜色</span><strong>:</strong> <a
-                                                                                href="#">红色</a> <a href="#">绿色</a> <a
-                                                                                href="#">白色</a></li>
-                                                                        <li><span>大小</span><strong>:</strong> <a
-                                                                                href="#">SL</a> <a href="#">SX</a> <a
-                                                                                href="#">M</a> <a href="#">XL</a></li>
-                                                                        <li><span>标签</span><strong>:</strong> <a
-                                                                                href="#">潮流</a> <a href="#">时尚</a> <a
-                                                                                href="#">科技</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="dse-btn">
-                                                            <div class="row">
-                                                                <div class="col-sm-12 col-md-12">
-                                                                    <div class="por-dse clearfix">
-                                                                        <ul>
-                                                                            <li class="share-btn clearfix">
-                                                                                <span>数量</span>
-                                                                                <input class="input-text qty" name="qty"
-                                                                                    maxlength="12" value="1" title="Qty"
-                                                                                    type="text">
-                                                                            </li>
-                                                                            <li class="share-btn clearfix hidden-xs">
-                                                                                <span>分享</span>
-                                                                                <a href="#"><i
-                                                                                        class="fa fa-facebook"></i></a>
-                                                                                <a href="#"><i
-                                                                                        class="fa fa-twitter"></i></a>
-                                                                                <a href="#"><i
-                                                                                        class="fa fa-google-plus"></i></a>
-                                                                                <a href="#"><i
-                                                                                        class="fa fa-linkedin"></i></a>
-                                                                                <a href="#"><i
-                                                                                        class="fa fa-instagram"></i></a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-12 col-md-12">
-                                                                    <div class="por-dse add-to">
-                                                                        <a href="#">添加到购物车</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     </div>
     <!-- content end -->
     </div>
@@ -542,13 +534,46 @@
                     name: "",
                     token: ""
                 },
-                categoryList: [],
-                history: {}
+
+                categoryList: [{//类别列表
+                    id: 0,
+                    name: '',
+                }],
+
+                brandList: [{//品牌列表
+                    id: 0,
+                    name: ''
+                }],
+
+                history: {},
+                nowCommodity: {
+                },
+                categoryname: "",
+                brandname: "",
+                commodityNum: "",
+                specindex: "",
+                Collection: {
+                    commodity: {
+                        id: ""
+                    },
+                    price: ""
+                }
+
             },
             methods: {
                 // 页面初始化
                 init: function () {
-                    this.customer = JSON.parse(sessionStorage.getItem("customer"))
+                    // 获取客户
+                    if (JSON.parse(sessionStorage.getItem("customer")) != null)
+                        this.customer = JSON.parse(sessionStorage.getItem("customer"));
+                    console.log(this.customer.name);
+
+                    // 获取商品类别列表`http://192.168.43.98:8080/api/commodity/category`
+                    axios.get(`${this.url}/api/commodity/category`).then(Response => {
+                        this.categoryList = Response.data;
+                        console.log(this.categoryList);
+                    });
+
                     axios.get(`${this.url}/api/customer/showfoot`, {
                         params: {
                             uid: this.customer.id
@@ -567,29 +592,65 @@
                         .catch((error) => {
                         })
                 },
+                //当前查看商品
+                showNowCommodity: function (index) {
+                    console.log(this.history[index].commodity);
+                    this.nowindex = index;
+                    this.nowCommodity = this.history[index].commodity;
+                    this.categoryname = this.nowCommodity.category.name;
+                    this.brandname = this.nowCommodity.brand.name;
+                },
 
                 // 添加购物车
-                addCart:function(index){
-                    const params=new URLSearchParams();
-                    params.append("uid",this.customer.id);
-                    params.append("commodityid",this.history[index].commodity.id);
-                    params.append("quantity",1);
-                    params.append("param",this.history[index].commodity.specList[0].param);
+                addCart: function () {
+                    const params = new URLSearchParams();
+                    params.append("uid", this.customer.id);
+                    params.append("commodityid", this.nowCommodity.id);
+                    params.append("quantity", this.commodityNum);
+                    params.append("param", this.nowCommodity.specList[this.specindex].param);
                     axios.post(`${this.url}/api/cart/addcart`,
                         params
-                        , 
+                        ,
                         {
-                            headers:{
+                            headers: {
                                 'Authorization': `Bearer${this.customer.token}`
-                                }
+                            }
                         })
-                    .then(res => {
-                        console.log(res)
-                    })
-                    .catch(err => {
-                        console.error(err); 
-                    })
+                        .then(res => {
+                            console.log(res)
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                },
+                selparam: function (index) {
+                    this.specindex = index;
+                },
+
+                // 收藏
+                wishlist: function (index) {
+                    this.Collection.commodity.id = this.history[index].commodity.id
+                    this.Collection.price = this.history[index].commodity.price;
+                    console.log(this.Collection.commodity.id);
+
+                    // const params = new URLSearchParams();
+                    // params.append('uid', this.customer.id);
+                    // params.append("collection", this.Collection)
+                    console.log(this.customer.id);
+
+                    axios.post(`${this.url}/api/customer/collection`,
+                        {
+                            id: this.customer.id,
+                            collectionList: [this.Collection]
+                        }, {
+                            headers: { 'Authorization': `Bearer${this.customer.token}` }
+                        }
+                    ).then(Response => { })
+                    console.log('收藏');
                 }
+
+
+
             },
             mounted() {
                 this.init();
