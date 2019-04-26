@@ -1,4 +1,4 @@
-﻿ <!doctype html>
+﻿<!doctype html>
 <html class="no-js" lang="en">
 
 <head>
@@ -856,6 +856,11 @@
                     price: '',
                 },
 
+                // 足迹
+                History: {
+                    commodity: { id: 0 }
+                },
+
                 pageNum: 1,
 
                 pages: 1,//总页数
@@ -905,10 +910,16 @@
 
                 },
 
-                //快速查看
+                //快速查看 添加足迹
                 quickView: function (q) {
+                    this.History.commodity.id = q.id;
                     this.commodityView = q;
                     this.addParam = q.specList[0].param;
+                    axios.post(`${this.url}//api/customer/foot`, {
+                        id: this.customer.id,
+                        historyList: [this.History]
+                    }, { headers: { 'Authorization': `Bearer${this.customer.token}` } }).then(Response => { });
+                    console.log('足迹');
                 },
 
                 //选择参数
