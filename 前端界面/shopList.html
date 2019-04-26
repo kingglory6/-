@@ -195,8 +195,10 @@
                                         <h3 class="sidebar-title">选择类别</h3>
                                         <div class="sidebar-list">
                                             <ul>
-                                                <li><a href="#">全部</a></li>
-                                                <li v-for="item in categoryList"><a href="#">{{item.name}}</a></li>
+                                                <li><a href="#" @click="getpagecommodity">全部</a></li>
+                                                <li v-for="item in categoryList"><a :href="`#{item.name}`"
+                                                        @click="getcategorycommodity(item.id)">{{item.name}}</a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -205,7 +207,8 @@
                                         <div class="sidebar-list">
                                             <ul>
                                                 <li><a href="#">全部</a></li>
-                                                <li v-for="item in brandList"><a href="#">{{item.name}}</a></li>
+                                                <li v-for="item in brandList"><a :href="`#{item.name}`"
+                                                        @click="getbrandcommodity(item.id)">{{item.name}}</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -844,10 +847,32 @@
                     this.addParamindex = i;
                 },
 
-                //查询某一页的商品
+                //查询某一页的商品 
                 getpagecommodity: function () {
                     console.log(this.pageNum);
                     axios.get(`${this.url}/api/commodity/allcomm/${this.pageNum}`).then(Response => {
+                        this.commodityList = Response.data.list;
+                        this.pages = Response.data.pages;
+                        console.log(this.commodityList);
+                    });
+                },
+
+                //查询某一页的商品  获取某种品牌商品
+                getcategorycommodity: function (categoryid) {
+                    console.log(categoryid);
+                    console.log(this.pageNum);
+                    axios.get(`${this.url}/api/commodity/${categoryid}/${this.pageNum}`).then(Response => {
+                        this.commodityList = Response.data.list;
+                        this.pages = Response.data.pages;
+                        console.log(this.commodityList);
+                    });
+                },
+
+                //查询某一页的商品  获取某种类别的商品
+                getbrandcommodity: function (brandid) {
+                    console.log(this.pageNum);
+                    console.log(brandid);
+                    axios.get(`${this.url}/api/commodity/${brandid}/${this.pageNum}`).then(Response => {
                         this.commodityList = Response.data.list;
                         this.pages = Response.data.pages;
                         console.log(this.commodityList);
