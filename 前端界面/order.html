@@ -183,29 +183,29 @@
 
 
                 <!-- shopping-cart-area start -->
-                <div class="cart-area ptb-100">
+                <div v-if="bl" v-if="be" class="cart-area ptb-100">
                     <div class="container">
-                            <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th><a href="javascript:void(0)" @click="orders()" >全部</a></th>
-                                            <th><a href="javascript:void(0)" @click="fod(0)" >未付款</a></th>
-                                            <th><a href="javascript:void(0)" @click="fod(1)">未发货</a></th>
-                                            <th><a href="javascript:void(0)" @click="fod(2)">已发货</a></th>
-                                            <th><a href="javascript:void(0)" @click="fod(3)">已到货</a></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th><a href="javascript:void(0)" @click="fdlt()">订单回收站</a></th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th><a href="javascript:void(0)" @click="orders()">全部</a></th>
+                                    <th><a href="javascript:void(0)" @click="fod(0)">未付款</a></th>
+                                    <th><a href="javascript:void(0)" @click="fod(1)">未发货</a></th>
+                                    <th><a href="javascript:void(0)" @click="fod(2)">已发货</a></th>
+                                    <th><a href="javascript:void(0)" @click="fod(3)">已到货</a></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th><a href="javascript:void(0)" @click="fdlt()">订单回收站</a></th>
+                                </tr>
+                            </thead>
+                        </table>
+
                     </div>
-                    <div  v-for="od in order" class="container mt-2" >
+                    <div v-for="(od,index) in order" class="container mt-2">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="table-content table-responsive">
-                                    <table >
+                                    <table>
                                         <thead>
                                             <tr>
                                                 <th>订单id</th>
@@ -223,7 +223,8 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i in od.item">
-                                                <td><a href="javascript:void(0)" >{{od.id}}</a></td>
+                                                <td><a href="javascript:void(0)"
+                                                        @click="checkod(order[index])">{{od.id}}</a></td>
                                                 <td>{{od.time}}</td>
                                                 <td>
                                                     <a href="#"><img src="i.commodity.specList[0].img" alt=""></a>
@@ -236,8 +237,10 @@
                                                     {{i.quantity}}
                                                 </td>
                                                 <td class="product-subtotal">{{od.total}}</td>
-                                                
-                                                <td v-if="boolean" ><button @click="upsay(od.id,od.zt)" type="button" class="btn btn-primary">{{od.zt}}</button></td>
+
+                                                <td @click="pl(order[index],od.zt)" v-if="boolean"><button
+                                                        @click="upsay(od.id,od.zt)" type="button"
+                                                        class="btn btn-primary">{{od.zt}}</button></td>
                                                 <td v-if="boolean"><a href="javascript:void(0)" @click="dltod(od.id)"><i
                                                             class="fa fa-times"></i></a></td>
                                             </tr>
@@ -247,6 +250,94 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div v-else-if="be" class="cart-area ptb-100">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4">
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div v-for="i in oxq.item" class="card-body">
+                                        <div class="form-group">
+                                            <label for="">订单号:{{oxq.id}}</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">订单时间:{{oxq.time}}</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">商品名称:{{i.commodity.title}}</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">商品数量:{{i.quantity}}</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">总价:{{oxq.total}}</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">收件人姓名:{{oxq.name}}</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">收件人手机号:{{oxq.phone}}</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">收件人地址:{{oxq.address}}</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" @click="fh()" class="btn btn-primary">返回</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-else class="cart-area ptb-100">
+                    <div class="row">
+                        <div class="col-lg-4">
+
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-body" v-for="i in oxq.item">
+                                    <div class="form-group">
+                                        <label for="">商品名称:{{i.commodity.title}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="">评分</label>
+                                      <select v-model="p"  class="form-control" name="" id="">
+                                        <option  v-for="(p, index) in pf">{{p}}</option>
+                                      </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">评论</label>
+                                        <input v-model="content" type="text" class="form-control form-control-sm"
+                                            name="" id="" aria-describedby="helpId" placeholder="">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <button type="button" @click="fh()" class="btn btn-primary">返回</button>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <button type="button" @click="qpl(i.commodity.id)"
+                                                class="btn btn-success">确定</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-4">
+
+                        </div>
+
+                    </div>
+
+
                 </div>
                 <!-- shopping-cart-area end -->
 
@@ -429,16 +520,22 @@
                     name: "",
                     token: "",
                 },
-                title:"",
+                title: "",
+                pf:[0,1,2,3,4,5],
+                p:0,
                 pagenum: 1,
                 sendstatus: 0,
                 paystatus: 2,
-                boolean:true,
-                qr:"确认到货",
+                boolean: true,
+                bl: true,
+                be: true,
+                content: "",
+                qr: "确认到货",
                 url: "http://192.168.43.98:8080",
                 order: [
 
-                ]
+                ],
+                oxq: [],
             },
             mounted() {
                 this.customer = JSON.parse(sessionStorage.getItem('customer'));
@@ -466,27 +563,27 @@
                         })
 
                 },
-                fod:function(index){
-                      this.boolean = true;
-                      console.log(index);
-                      if(index == 0){
-                        this.paystatus= 2;
-                        this.sendstatus= 0;
-                      }
-                      if(index == 1){
-                        this.paystatus= 1;
-                        this.sendstatus= 0;
-                      }
-                      if(index == 2){
-                        this.paystatus= 1;
-                        this.sendstatus= 1;
-                      }
-                      if(index == 3){
-                        this.paystatus= 1;
-                        this.sendstatus= 2;
-                      }
+                fod: function (index) {
+                    this.boolean = true;
+                    console.log(index);
+                    if (index == 0) {
+                        this.paystatus = 2;
+                        this.sendstatus = 0;
+                    }
+                    if (index == 1) {
+                        this.paystatus = 1;
+                        this.sendstatus = 0;
+                    }
+                    if (index == 2) {
+                        this.paystatus = 1;
+                        this.sendstatus = 1;
+                    }
+                    if (index == 3) {
+                        this.paystatus = 1;
+                        this.sendstatus = 2;
+                    }
                     axios.get(`${this.url}/api/v1/order/find/${this.pagenum}/${this.sendstatus}/${this.paystatus}`,
-                    {
+                        {
                             params: {
                                 uid: this.customer.id
                             },
@@ -520,10 +617,10 @@
 
                         })
                 },
-                fdlt:function(){
+                fdlt: function () {
                     this.boolean = false;
-                    axios.get(`${this.url}/api/v1/order/fdlt/${this.pagenum}`,    
-                    {
+                    axios.get(`${this.url}/api/v1/order/fdlt/${this.pagenum}`,
+                        {
                             params: {
                                 uid: this.customer.id
                             },
@@ -533,33 +630,71 @@
                             }
                         }
                     ).then((response) => {
-                            this.order = response.data.list;
-                        })
+                        this.order = response.data.list;
+                    })
                         .catch((error) => {
                         })
 
                 },
-                upsay:function(oid,zt){
-                     console.log(oid);
-                     console.log(zt);
-                     const param = new URLSearchParams();
-                     param.append("oid",oid)
-                     if(zt == this.qr){
-                         axios.post(`${this.url}/api/v1/order/up`,param,
-                         {
+                upsay: function (oid, zt) {
+                    console.log(oid);
+                    console.log(zt);
+                    const param = new URLSearchParams();
+                    param.append("oid", oid)
+                    if (zt == this.qr) {
+                        axios.post(`${this.url}/api/v1/order/up`, param,
+                            {
+                                headers: {
+                                    'Authorization': `Bearer${this.customer.token}`
+                                }
+                            }).then((response) => {
+                                this.fod();
+                            }).catch((error) => {
+                            })
+                    }
+
+                },
+                checkod: function (od) {
+                    this.bl = false;
+                    this.oxq = od;
+                },
+                fh: function () {
+                    this.bl = true;
+                    this.be = true;
+                },
+                pl: function (od, zt) {
+                    this.bl = false;
+                    this.be = false;
+                    console.log(zt);
+                    if (zt == "评论") {
+                        this.oxq = od;
+                    }
+                },
+                qpl: function (cid) {
+                    const param = new URLSearchParams();
+                    param.append("uid", this.customer.id);
+                    param.append("cid", cid);
+                    param.append("content", this.content);
+                    param.append("score",this.p);
+                    axios.post(`${this.url}/api/v1/order/addcment`,
+                        param, {
+                        
                             headers: {
-                                'Authorization': `Bearer${this.customer.token}`
-                            }
-                        }).then((response)=>{
-                            this.fod();
-                        }) .catch((error) => {
-                        })
-                     }
-                     
+                                'Authorization': `Bearer${this.customer.token}`  
+                        }}).then((response) => {
+                                this.bl = true;
+                                this.bl = true;
+                                this.fod();
+                            }).catch((error) => {
+                            })
+
+
+                    this.content = "";
+
                 }
 
+            }
 
-            },
 
         });
     </script>
