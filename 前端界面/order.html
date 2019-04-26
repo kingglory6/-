@@ -221,19 +221,19 @@
                                                 <th v-else></th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr v-for="i in od.item">
-                                                <td><a href="javascript:void(0)"
+                                        <tbody>     
+                                            <tr>
+                                                <td rowspan="2"><a href="javascript:void(0)"
                                                         @click="checkod(order[index])">{{od.id}}</a></td>
-                                                <td>{{od.time}}</td>
-                                                <td>
+                                                <td rowspan="2">{{od.time}}</td>
+                                                <td  v-for="i in od.item">
                                                     <a href="#"><img src="i.commodity.specList[0].img" alt=""></a>
                                                 </td>
-                                                <td>
-                                                    {{i.commodity.title}}
+                                                <td v-for="i in od.item" >
+                                                        {{i.commodity.title}}
                                                 </td>
-                                                <td><span class="amount">{{i.commodity.price}}</span></td>
-                                                <td>
+                                                <td v-for="i in od.item"><span class="amount">{{i.commodity.price}}</span></td>
+                                                <td v-for="i in od.item">
                                                     {{i.quantity}}
                                                 </td>
                                                 <td class="product-subtotal">{{od.total}}</td>
@@ -306,10 +306,10 @@
                                         <label for="">商品名称:{{i.commodity.title}}</label>
                                     </div>
                                     <div class="form-group">
-                                      <label for="">评分</label>
-                                      <select v-model="p"  class="form-control" name="" id="">
-                                        <option  v-for="(p, index) in pf">{{p}}</option>
-                                      </select>
+                                        <label for="">评分</label>
+                                        <select v-model="p" class="form-control" name="" id="">
+                                            <option v-for="(p, index) in pf">{{p}}</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">评论</label>
@@ -521,8 +521,8 @@
                     token: "",
                 },
                 title: "",
-                pf:[0,1,2,3,4,5],
-                p:0,
+                pf: [0, 1, 2, 3, 4, 5],
+                p: 0,
                 pagenum: 1,
                 sendstatus: 0,
                 paystatus: 2,
@@ -530,6 +530,7 @@
                 bl: true,
                 be: true,
                 content: "",
+                length:0,
                 qr: "确认到货",
                 url: "http://192.168.43.98:8080",
                 order: [
@@ -565,7 +566,6 @@
                 },
                 fod: function (index) {
                     this.boolean = true;
-                    console.log(index);
                     if (index == 0) {
                         this.paystatus = 2;
                         this.sendstatus = 0;
@@ -594,6 +594,8 @@
                         })
                         .then((response) => {
                             this.order = response.data.list;
+                            this.length = this.order.item.length;
+                            console.log(this.length);
                             console.log(this.order);
                             console.log(this.order.id);
                         })
@@ -631,6 +633,8 @@
                         }
                     ).then((response) => {
                         this.order = response.data.list;
+                        this.length = this.order.item.length;
+                        console.log(this.length);
                     })
                         .catch((error) => {
                         })
@@ -663,10 +667,10 @@
                     this.be = true;
                 },
                 pl: function (od, zt) {
-                    this.bl = false;
-                    this.be = false;
                     console.log(zt);
                     if (zt == "评论") {
+                        this.bl = false;
+                        this.be = false;
                         this.oxq = od;
                     }
                 },
@@ -675,18 +679,19 @@
                     param.append("uid", this.customer.id);
                     param.append("cid", cid);
                     param.append("content", this.content);
-                    param.append("score",this.p);
+                    param.append("score", this.p);
                     axios.post(`${this.url}/api/v1/order/addcment`,
                         param, {
-                        
+
                             headers: {
-                                'Authorization': `Bearer${this.customer.token}`  
-                        }}).then((response) => {
-                                this.bl = true;
-                                this.bl = true;
-                                this.fod();
-                            }).catch((error) => {
-                            })
+                                'Authorization': `Bearer${this.customer.token}`
+                            }
+                        }).then((response) => {
+                            this.bl = true;
+                            this.bl = true;
+                            this.fod();
+                        }).catch((error) => {
+                        })
 
 
                     this.content = "";
