@@ -3609,21 +3609,6 @@ a#scrollUp:hover {
     width: 100%;
 }
 
-/* .hero-slider-item-1 {
-    background-image: url('../img/slider/1.jpg');
-} */
-
-.hero-slider-item-2 {
-    background-image: url('../img/slider/2.jpg');
-}
-.hero-slider-item-3 {
-    background-image: url('../img/slider/fashion1.jpg');
-}
-
-.hero-slider-item-4 {
-    background-image: url('../img/slider/fashion2.jpg');
-}
-
 .hero-slider-nav {
     background-color: #000;
     color: #fff !important;
