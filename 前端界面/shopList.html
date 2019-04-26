@@ -264,7 +264,8 @@
                                                                             v-if="item.recommed===1">荐</span>
                                                                     </div>
                                                                     <div class="button-group">
-                                                                        <a href="#cart" @click="addCart(item)"
+                                                                        <a href="#cart"
+                                                                            @click="addCart(item.id,1,item.id,1,item.specList[0].param)"
                                                                             title="添加到购物车">
                                                                             <i class="pe-7s-cart"></i>
                                                                         </a>
@@ -303,13 +304,15 @@
                                                                     <div class="col-md-4 col-sm-4 col-xs-12">
                                                                         <div class="shop-list-left">
                                                                             <div class="shop-img">
-                                                                                <a href="#"><img v-if="item.specList[0]"
+                                                                                <a v-if="item.specList[0]"
+                                                                                    :href="`#${item.specList[0].param}`"><img
                                                                                         :src="item.specList[0] && item.specList[0].img"
                                                                                         :alt="item.specList[0].param" /></a>
                                                                                 <div class="shop-quick-view">
                                                                                     <a href="#" data-toggle="modal"
                                                                                         data-target="#quick-view"
-                                                                                        title="Quick View">
+                                                                                        title="Quick View"
+                                                                                        @click=quickView(item)>
                                                                                         <i class="pe-7s-look"></i>
                                                                                     </a>
                                                                                 </div>
@@ -336,16 +339,17 @@
                                                                                     <span class="list-price">
                                                                                         <span
                                                                                             class="new">${{item.price}}</span>
-                                                                                        <span class="old">$140.00</span>
                                                                                     </span>
                                                                                 </div>
                                                                                 <div class="shop-list-cart">
                                                                                     <div class="shop-group">
-                                                                                        <a href="#" title="添加到购物车">
+                                                                                        <a href="#" title="添加到购物车"
+                                                                                            @click="addCart(item.id,1,item.id,1,item.specList[0].param)">
                                                                                             <i class="pe-7s-cart"></i>
                                                                                         </a>
                                                                                         <a class="wishlist" href="#"
-                                                                                            title="收藏">
+                                                                                            title="收藏"
+                                                                                            @click="wishlist(item)">
                                                                                             <i class="pe-7s-like"></i>
                                                                                         </a>
                                                                                     </div>
@@ -556,35 +560,36 @@
                                                         <div class="col-xs-12 col-sm-5">
                                                             <div class="quick-image">
                                                                 <div class="single-quick-image tab-content text-center">
-                                                                    <div class="tab-pane  fade in active"
-                                                                        id="sin-pro-1">
-                                                                        <img src="assets/img/shop/q1.jpg" alt="" />
+                                                                    <div v-for="(item,i) in commodityView.specList"
+                                                                        :key="i" v-if="i===0"
+                                                                        class="tab-pane fade in active" :id="i">
+                                                                        <img v-if="item" :src="item && item.img"
+                                                                            :alt="item.param"
+                                                                            :title="`${item.param}`" />
                                                                     </div>
-                                                                    <div class="tab-pane fade in" id="sin-pro-2">
-                                                                        <img src="assets/img/shop/q2.jpg" alt="" />
-                                                                    </div>
-                                                                    <div class="tab-pane fade in" id="sin-pro-3">
-                                                                        <img src="assets/img/shop/q3.jpg" alt="" />
-                                                                    </div>
-                                                                    <div class="tab-pane fade in" id="sin-pro-4">
-                                                                        <img src="assets/img/shop/q4.jpg" alt="" />
+                                                                    <div v-for="(item,i) in commodityView.specList"
+                                                                        :key="i" v-if="i!=0" class="tab-pane fade in"
+                                                                        :id="i">
+                                                                        <img v-if="item" :src="item && item.img"
+                                                                            :alt="item.param"
+                                                                            :title="`${item.param}`" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="quick-thumb">
                                                                     <div class="nav nav-tabs">
                                                                         <ul>
-                                                                            <li><a data-toggle="tab" href="#sin-pro-1">
-                                                                                    <img src="assets/img/shop/q1.jpg"
-                                                                                        alt="quick view" /> </a></li>
-                                                                            <li><a data-toggle="tab" href="#sin-pro-2">
-                                                                                    <img src="assets/img/shop/q2.jpg"
-                                                                                        alt="quick view" /> </a></li>
-                                                                            <li><a data-toggle="tab" href="#sin-pro-3">
-                                                                                    <img src="assets/img/shop/q3.jpg"
-                                                                                        alt="quick view" /> </a></li>
-                                                                            <li><a data-toggle="tab" href="#sin-pro-4">
-                                                                                    <img src="assets/img/shop/q4.jpg"
-                                                                                        alt="quick view" /> </a></li>
+                                                                            <li v-for="(item,index) in commodityView.specList"
+                                                                                :key="index">
+                                                                                <a @click="selparam(index)"
+                                                                                    data-toggle="tab"
+                                                                                    :href="`#${index}`">
+                                                                                    <img v-if="item"
+                                                                                        :src="item && item.img"
+                                                                                        :alt="`#${item.param}`"
+                                                                                        :title="`${item.param}`" />
+                                                                                </a><br>
+                                                                                <span>{{item.param}}</span>
+                                                                            </li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -593,7 +598,7 @@
                                                         <div class="col-xs-12 col-sm-7">
                                                             <div class="quick-right">
                                                                 <div class="quick-right-text">
-                                                                    <h3><strong>电脑耳机</strong></h3>
+                                                                    <h3><strong>{{commodityView.title}}</strong></h3>
                                                                     <div class="rating">
                                                                         <i class="fa fa-star"></i>
                                                                         <i class="fa fa-star"></i>
@@ -602,43 +607,19 @@
                                                                         <i class="fa fa-star-o"></i>
                                                                     </div>
                                                                     <div class="amount">
-                                                                        <h4>$65.00</h4>
+                                                                        <h4>${{commodityView.price}}</h4>
                                                                     </div>
-                                                                    <p>我跟你讲这是一个非常好的耳机你不买就亏大发了，我套你猴子的，赶紧买！</p>
-                                                                    <div class="row m-p-b">
-                                                                        <div class="col-sm-12 col-md-6">
-                                                                            <div
-                                                                                class="por-dse responsive-strok clearfix">
-                                                                                <ul>
-                                                                                    <li><span>存货</span><strong>:</strong>9999
-                                                                                    </li>
-                                                                                    <li><span>类型</span><strong>:</strong>耳机
-                                                                                    </li>
-                                                                                    <li><span>功能</span><strong>:</strong>
-                                                                                        <a href="#">听歌</a> <a
-                                                                                            href="#">游戏</a> <a
-                                                                                            href="#">隔音</a></li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-12 col-md-6">
-                                                                            <div class="por-dse color">
-                                                                                <ul>
-                                                                                    <li><span>颜色</span><strong>:</strong>
-                                                                                        <a href="#">红色</a> <a
-                                                                                            href="#">绿色</a> <a
-                                                                                            href="#">白色</a></li>
-                                                                                    <li><span>大小</span><strong>:</strong>
-                                                                                        <a href="#">SL</a> <a
-                                                                                            href="#">SX</a> <a
-                                                                                            href="#">M</a> <a
-                                                                                            href="#">XL</a></li>
-                                                                                    <li><span>标签</span><strong>:</strong>
-                                                                                        <a href="#">潮流</a> <a
-                                                                                            href="#">时尚</a> <a
-                                                                                            href="#">科技</a></li>
-                                                                                </ul>
-                                                                            </div>
+                                                                    <p>{{commodityView.description}}</p>
+                                                                    <div class="col-sm-12 col-md-6">
+                                                                        <div class="por-dse responsive-strok clearfix">
+                                                                            <ul>
+                                                                                <li><span>存货</span><strong>:</strong>{{commodityView.stock}}
+                                                                                </li>
+                                                                                <li><span>类别</span><strong>:</strong>{{commodityView.category.name}}
+                                                                                </li>
+                                                                                <li><span>品牌</span><strong>:</strong>{{commodityView.brand.name}}
+                                                                                </li>
+                                                                            </ul>
                                                                         </div>
                                                                     </div>
                                                                     <div class="dse-btn">
@@ -649,9 +630,10 @@
                                                                                         <li class="share-btn clearfix">
                                                                                             <span>数量</span>
                                                                                             <input
+                                                                                                v-model="addcommodityQ"
                                                                                                 class="input-text qty"
                                                                                                 name="qty"
-                                                                                                maxlength="12" value="1"
+                                                                                                maxlength="12"
                                                                                                 title="Qty" type="text">
                                                                                         </li>
                                                                                         <li
@@ -673,7 +655,8 @@
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-12">
                                                                                 <div class="por-dse add-to">
-                                                                                    <a href="#">添加到购物车</a>
+                                                                                    <a href="javascript:void(0)"
+                                                                                        @click="addCart(commodityView.id,addcommodityQ,commodityView.specList[addParamindex].param)">添加到购物车</a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
